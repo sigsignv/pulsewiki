@@ -1,0 +1,23 @@
+{
+    "name": "sigsign/pulsewiki",
+    "type": "project",
+    "authors": [
+        {
+            "name": "yu-ji"
+        },
+        {
+            "name": "PukiWiki Development Team"
+        },
+        {
+            "name": "Sigsign",
+            "email": "sig@signote.cc"
+        }
+    ],
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Pulsewiki\\": "app/"
+        }
+    },
+    "require": {}
+}
