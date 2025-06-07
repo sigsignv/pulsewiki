@@ -158,7 +158,6 @@ if (isset($auth_type) && $auth_type === AUTH_TYPE_SAML) {
 /////////////////////////////////////////////////
 // INI_FILE: $agents:  UserAgentの識別
 
-$ua = 'HTTP_USER_AGENT';
 $user_agent = $matches = array();
 
 $user_agent['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
