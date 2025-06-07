@@ -5,6 +5,7 @@ PulseWiki is a fork of [PukiWiki](https://pukiwiki.sourceforge.io/).
 ## Requirements
 
 - PHP 7.2 or later
+- mbstring extension
 
 ## Authors
 
