@@ -173,6 +173,11 @@ define('UA_NAME', 'Mozilla');
  */
 define('UA_VERS', '5.0');
 
+/**
+ * @deprecated
+ */
+define('UA_INI_FILE', 'default.ini.php');
+
 $user_agent = $matches = array();
 
 $user_agent['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
@@ -183,11 +188,6 @@ foreach ($agents as $agent) {
 	}
 }
 unset($agents, $matches);
-
-define('UA_INI_FILE', DATA_HOME . UA_PROFILE . '.ini.php');
-if (! file_exists(UA_INI_FILE) || ! is_readable(UA_INI_FILE)) {
-	die_message('UA_INI_FILE for "' . UA_PROFILE . '" not found.');
-}
 
 unset($user_agent);	// Unset after reading UA_INI_FILE
 
