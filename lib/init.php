@@ -178,18 +178,7 @@ define('UA_VERS', '5.0');
  */
 define('UA_INI_FILE', 'default.ini.php');
 
-$user_agent = $matches = array();
-
-$user_agent['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-
-foreach ($agents as $agent) {
-	if (preg_match($agent['pattern'], $user_agent['agent'], $matches)) {
-		break;
-	}
-}
-unset($agents, $matches);
-
-unset($user_agent);	// Unset after reading UA_INI_FILE
+unset($agents);
 
 require_once(__DIR__ . '/../default.ini.php');
 
