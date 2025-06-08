@@ -551,12 +551,6 @@ $page_uri_handler = null; // default
 
 /////////////////////////////////////////////////
 // User-Agent settings
-//
-// If you want to ignore embedded browsers for rich-content-wikisite,
-// remove (or comment-out) all 'keitai' settings.
-//
-// If you want to to ignore desktop-PC browsers for simple wikisite,
-// copy keitai.ini.php to default.ini.php and customize it.
 
 $agents = array(
 // pattern: A regular-expression that matches device(browser)'s name and version
