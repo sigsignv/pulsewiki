@@ -158,22 +158,23 @@ if (isset($auth_type) && $auth_type === AUTH_TYPE_SAML) {
 /////////////////////////////////////////////////
 // INI_FILE: $agents:  UserAgentの識別
 
+/**
+ * Compatibility constants
+ */
+define('UA_PROFILE', 'default');
+
 $user_agent = $matches = array();
 
 $user_agent['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 
 foreach ($agents as $agent) {
 	if (preg_match($agent['pattern'], $user_agent['agent'], $matches)) {
-		$user_agent['profile'] = isset($agent['profile']) ? $agent['profile'] : '';
 		$user_agent['name']    = isset($matches[1]) ? $matches[1] : '';	// device or browser name
 		$user_agent['vers']    = isset($matches[2]) ? $matches[2] : ''; // 's version
 		break;
 	}
 }
 unset($agents, $matches);
-
-// Profile-related init and setting
-define('UA_PROFILE', isset($user_agent['profile']) ? $user_agent['profile'] : '');
 
 define('UA_INI_FILE', DATA_HOME . UA_PROFILE . '.ini.php');
 if (! file_exists(UA_INI_FILE) || ! is_readable(UA_INI_FILE)) {
