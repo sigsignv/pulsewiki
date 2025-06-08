@@ -178,13 +178,13 @@ define('UA_PROFILE', isset($user_agent['profile']) ? $user_agent['profile'] : ''
 define('UA_INI_FILE', DATA_HOME . UA_PROFILE . '.ini.php');
 if (! file_exists(UA_INI_FILE) || ! is_readable(UA_INI_FILE)) {
 	die_message('UA_INI_FILE for "' . UA_PROFILE . '" not found.');
-} else {
-	require(UA_INI_FILE); // Also manually
 }
 
 define('UA_NAME', isset($user_agent['name']) ? $user_agent['name'] : '');
 define('UA_VERS', isset($user_agent['vers']) ? $user_agent['vers'] : '');
 unset($user_agent);	// Unset after reading UA_INI_FILE
+
+require_once(__DIR__ . '/../default.ini.php');
 
 /////////////////////////////////////////////////
 // ディレクトリのチェック
