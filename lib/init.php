@@ -159,10 +159,18 @@ if (isset($auth_type) && $auth_type === AUTH_TYPE_SAML) {
 // INI_FILE: $agents:  UserAgentの識別
 
 /**
- * Compatibility constants
+ * @deprecated
  */
 define('UA_PROFILE', 'default');
+
+/**
+ * @deprecated
+ */
 define('UA_NAME', 'Mozilla');
+
+/**
+ * @deprecated
+ */
 define('UA_VERS', '5.0');
 
 $user_agent = $matches = array();
