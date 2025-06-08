@@ -158,34 +158,29 @@ if (isset($auth_type) && $auth_type === AUTH_TYPE_SAML) {
 /////////////////////////////////////////////////
 // INI_FILE: $agents:  UserAgentの識別
 
-$ua = 'HTTP_USER_AGENT';
-$user_agent = $matches = array();
+/**
+ * @deprecated
+ */
+define('UA_PROFILE', 'default');
 
-$user_agent['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+/**
+ * @deprecated
+ */
+define('UA_NAME', 'Mozilla');
 
-foreach ($agents as $agent) {
-	if (preg_match($agent['pattern'], $user_agent['agent'], $matches)) {
-		$user_agent['profile'] = isset($agent['profile']) ? $agent['profile'] : '';
-		$user_agent['name']    = isset($matches[1]) ? $matches[1] : '';	// device or browser name
-		$user_agent['vers']    = isset($matches[2]) ? $matches[2] : ''; // 's version
-		break;
-	}
-}
-unset($agents, $matches);
+/**
+ * @deprecated
+ */
+define('UA_VERS', '5.0');
 
-// Profile-related init and setting
-define('UA_PROFILE', isset($user_agent['profile']) ? $user_agent['profile'] : '');
+/**
+ * @deprecated
+ */
+define('UA_INI_FILE', 'default.ini.php');
 
-define('UA_INI_FILE', DATA_HOME . UA_PROFILE . '.ini.php');
-if (! file_exists(UA_INI_FILE) || ! is_readable(UA_INI_FILE)) {
-	die_message('UA_INI_FILE for "' . UA_PROFILE . '" not found.');
-} else {
-	require(UA_INI_FILE); // Also manually
-}
+unset($agents);
 
-define('UA_NAME', isset($user_agent['name']) ? $user_agent['name'] : '');
-define('UA_VERS', isset($user_agent['vers']) ? $user_agent['vers'] : '');
-unset($user_agent);	// Unset after reading UA_INI_FILE
+require_once(__DIR__ . '/../default.ini.php');
 
 /////////////////////////////////////////////////
 // ディレクトリのチェック

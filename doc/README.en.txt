@@ -51,9 +51,7 @@ HOW TO MAKE SITE
     3. Edit pukiwiki.ini.php to make it fit to your environment.
         Common setting                 : pukiwiki.ini.php
         Settings for each agent:
-          I-MODE(NTT),AirH"(DDIPocket) : i_mode.ini.php
-          J-PHONE                      : jphone.ini.php
-          Default( any other above )   : default.ini.php
+          Desktop PC                   : default.ini.php
         String replace setting         : rules.ini.php
 
     4. Change the file permission as follows

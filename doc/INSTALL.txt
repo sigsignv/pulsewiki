@@ -37,7 +37,6 @@
        その他、ユーザーエージェントごとの設定が用意されています。
 
         デスクトップPC     : default.ini.php
-        携帯電話およびPDA  : keitai.ini.php
 
       PukiWikiの管理者パスワードは、pukiwiki.ini.php にある変数 $adminpass
       です。簡単に試すだけであるならば、以下のような内容で充分でしょう。
