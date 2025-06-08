@@ -20,14 +20,15 @@
 /nbproject/**
 /.vscode/
 
-# Composer files
-/vendor/
-
 # Log
 /log/
 /updateslog/
 /node_modules/
 /package-lock.json
+
+# Composer
+/composer.phar
+/vendor/
 
 # PHPUnit
 /tests/*.cache
