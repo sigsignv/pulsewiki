@@ -163,6 +163,7 @@ if (isset($auth_type) && $auth_type === AUTH_TYPE_SAML) {
  */
 define('UA_PROFILE', 'default');
 define('UA_NAME', 'Mozilla');
+define('UA_VERS', '5.0');
 
 $user_agent = $matches = array();
 
@@ -170,7 +171,6 @@ $user_agent['agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_
 
 foreach ($agents as $agent) {
 	if (preg_match($agent['pattern'], $user_agent['agent'], $matches)) {
-		$user_agent['vers']    = isset($matches[2]) ? $matches[2] : ''; // 's version
 		break;
 	}
 }
@@ -181,7 +181,6 @@ if (! file_exists(UA_INI_FILE) || ! is_readable(UA_INI_FILE)) {
 	die_message('UA_INI_FILE for "' . UA_PROFILE . '" not found.');
 }
 
-define('UA_VERS', isset($user_agent['vers']) ? $user_agent['vers'] : '');
 unset($user_agent);	// Unset after reading UA_INI_FILE
 
 require_once(__DIR__ . '/../default.ini.php');
