@@ -1253,18 +1253,6 @@ class PukiWikiStandardPageURIHandler {
 
 //// Compat ////
 
-// array_fill -- Fill an array with values
-// (PHP 4 >= 4.2.0)
-if (! function_exists('array_fill')) {
-
-	function array_fill($start_index, $num, $value)
-	{
-		$ret = array();
-		while ($num-- > 0) $ret[$start_index++] = $value;
-		return $ret;
-	}
-}
-
 // md5_file -- Calculates the md5 hash of a given filename
 // (PHP 4 >= 4.2.0)
 if (! function_exists('md5_file')) {
