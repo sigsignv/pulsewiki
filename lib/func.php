@@ -1253,23 +1253,6 @@ class PukiWikiStandardPageURIHandler {
 
 //// Compat ////
 
-// is_a --  Returns TRUE if the object is of this class or has this class as one of its parents
-// (PHP 4 >= 4.2.0)
-if (! function_exists('is_a')) {
-
-	function is_a($class, $match)
-	{
-		if (empty($class)) return FALSE; 
-
-		$class = is_object($class) ? get_class($class) : $class;
-		if (strtolower($class) == strtolower($match)) {
-			return TRUE;
-		} else {
-			return is_a(get_parent_class($class), $match);	// Recurse
-		}
-	}
-}
-
 // array_fill -- Fill an array with values
 // (PHP 4 >= 4.2.0)
 if (! function_exists('array_fill')) {
