@@ -273,10 +273,6 @@ class Tracker_field
 	var $sort_type = SORT_REGULAR;
 	var $id = 0;
 
-	function Tracker_field($field,$page,$refer,&$config)
-	{
-		$this->__construct($field, $page, $refer, $config);
-	}
 	function __construct($field,$page,$refer,&$config)
 	{
 		global $post;
@@ -384,10 +380,6 @@ class Tracker_field_format extends Tracker_field
 	var $styles = array();
 	var $formats = array();
 
-	function Tracker_field_format($field,$page,$refer,&$config)
-	{
-		$this->__construct($field, $page, $refer, $config);
-	}
 	function __construct($field,$page,$refer,&$config)
 	{
 		parent::__construct($field,$page,$refer,$config);
@@ -779,10 +771,6 @@ class Tracker_list
 	var $newly_deleted_pages = array();
 	var $newly_updated_pages = array();
 
-	function Tracker_list($page,$refer,&$config,$list,&$cache_holder)
-	{
-		$this->__construct($page, $refer, $config, $list, $cache_holder);
-	}
 	function __construct($page,$refer,&$config,$list,&$cache_holder)
 	{
 		global $whatsdeleted, $_cached_page_filetime;

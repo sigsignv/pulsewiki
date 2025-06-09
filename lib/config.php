@@ -27,10 +27,6 @@ class Config
 	var $name, $page; // Page name
 	var $objs = array();
 
-	function Config($name)
-	{
-		$this->__construct($name);
-	}
 	function __construct($name)
 	{
 		$this->name = $name;
@@ -139,10 +135,6 @@ class ConfigTable
 	var $after  = array();	// Page contents (except table ones)
 	var $values = array();	// Table contents
 
-	function ConfigTable($title, $obj = NULL)
-	{
-		$this->__construct($title, $obj);
-	}
 	function __construct($title, $obj = NULL)
 	{
 		if ($obj !== NULL) {

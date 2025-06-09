@@ -32,10 +32,6 @@ class Element
 	var $elements; // References of childs
 	var $last;     // Insert new one at the back of the $last
 
-	function Element()
-	{
-		$this->__construct();
-	}
 	function __construct()
 	{
 		$this->elements = array();
@@ -169,10 +165,6 @@ function & Factory_Div(& $root, $text)
 // Inline elements
 class Inline extends Element
 {
-	function Inline($text)
-	{
-		$this->__construct($text);
-	}
 	function __construct($text)
 	{
 		parent::__construct();
@@ -210,10 +202,6 @@ class Paragraph extends Element
 {
 	var $param;
 
-	function Paragraph($text, $param = '')
-	{
-		$this->__construct($text, $param);
-	}
 	function __construct($text, $param = '')
 	{
 		parent::__construct();
@@ -246,10 +234,6 @@ class Heading extends Element
 	var $id;
 	var $msg_top;
 
-	function Heading(& $root, $text)
-	{
-		$this->__construct($root, $text);
-	}
 	function __construct(& $root, $text)
 	{
 		parent::__construct();
@@ -282,10 +266,6 @@ class Heading extends Element
 // Horizontal Rule
 class HRule extends Element
 {
-	function HRule(& $root, $text)
-	{
-		$this->__construct($root, $text);
-	}
 	function __construct(& $root, $text)
 	{
 		parent::__construct();
@@ -311,10 +291,6 @@ class ListContainer extends Element
 	var $level;
 	var $style;
 
-	function ListContainer($tag, $tag2, $head, $text)
-	{
-		$this->__construct($tag, $tag2, $head, $text);
-	}
 	function __construct($tag, $tag2, $head, $text)
 	{
 		parent::__construct();
@@ -370,10 +346,6 @@ class ListContainer extends Element
 
 class ListElement extends Element
 {
-	function ListElement($level, $head)
-	{
-		$this->__construct($level, $head);
-	}
 	function __construct($level, $head)
 	{
 		parent::__construct();
@@ -397,10 +369,6 @@ class ListElement extends Element
 // - Three
 class UList extends ListContainer
 {
-	function UList(& $root, $text)
-	{
-		$this->__construct($root, $text);
-	}
 	function __construct(& $root, $text)
 	{
 		parent::__construct('ul', 'li', '-', $text);
@@ -412,10 +380,6 @@ class UList extends ListContainer
 // + Three
 class OList extends ListContainer
 {
-	function OList(& $root, $text)
-	{
-		$this->__construct($root, $text);
-	}
 	function __construct(& $root, $text)
 	{
 		parent::__construct('ol', 'li', '+', $text);
@@ -427,10 +391,6 @@ class OList extends ListContainer
 // : definition3 | description3
 class DList extends ListContainer
 {
-	function DList($out)
-	{
-		$this->__construct($out);
-	}
 	function __construct($out)
 	{
 		parent::__construct('dl', 'dt', ':', $out[0]);
@@ -446,10 +406,6 @@ class BQuote extends Element
 {
 	var $level;
 
-	function BQuote(& $root, $text)
-	{
-		$this->__construct($root, $text);
-	}
 	function __construct(& $root, $text)
 	{
 		parent::__construct();
@@ -513,10 +469,6 @@ class TableCell extends Element
 	var $rowspan = 1;
 	var $style; // is array('width'=>, 'align'=>...);
 
-	function TableCell($text, $is_template = FALSE)
-	{
-		$this->__construct($text, $is_template);
-	}
 	function __construct($text, $is_template = FALSE)
 	{
 		parent::__construct();
@@ -597,10 +549,6 @@ class Table extends Element
 	var $types;
 	var $col; // number of column
 
-	function Table($out)
-	{
-		$this->__construct($out);
-	}
 	function __construct($out)
 	{
 		parent::__construct();
@@ -702,10 +650,6 @@ class YTable extends Element
 {
 	var $col;	// Number of columns
 
-	function YTable($row = array('cell1 ', ' cell2 ', ' cell3'))
-	{
-		$this->__construct($row);
-	}
 	// TODO: Seems unable to show literal '==' without tricks.
 	//       But it will be imcompatible.
 	// TODO: Why toString() or toXHTML() here
@@ -782,10 +726,6 @@ class YTable extends Element
 // ' 'Space-beginning sentence
 class Pre extends Element
 {
-	function Pre(& $root, $text)
-	{
-		$this->__construct($root, $text);
-	}
 	function __construct(& $root, $text)
 	{
 		global $preformat_ltrim;
@@ -817,10 +757,6 @@ class Div extends Element
 	var $name;
 	var $param;
 
-	function Div($out)
-	{
-		$this->__construct($out);
-	}
 	function __construct($out)
 	{
 		parent::__construct();
@@ -844,10 +780,6 @@ class Align extends Element
 {
 	var $align;
 
-	function Align($align)
-	{
-		$this->__construct($align);
-	}
 	function __construct($align)
 	{
 		parent::__construct();
@@ -883,10 +815,6 @@ class Body extends Element
 		',' => 'YTable',
 		'#' => 'Div');
 
-	function Body($id)
-	{
-		$this->__construct($id);
-	}
 	function __construct($id)
 	{
 		$this->id            = $id;
@@ -1036,10 +964,6 @@ class Body extends Element
 
 class Contents_UList extends ListContainer
 {
-	function Contents_UList($text, $level, $id)
-	{
-		$this->__construct($text, $level, $id);
-	}
 	function __construct($text, $level, $id)
 	{
 		// Reformatting $text
