@@ -340,9 +340,6 @@ class tarlib
 	var $arc_kind;
 	var $dummydata;
 
-	function tarlib() {
-		$this->__construct();
-	}
 	function __construct() {
 		$this->filename = '';
 		$this->fp       = FALSE;

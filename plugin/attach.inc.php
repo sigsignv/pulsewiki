@@ -441,10 +441,6 @@ class AttachFile
 	var $size_str = '';
 	var $status = array('count'=>array(0), 'age'=>'', 'pass'=>'', 'freeze'=>FALSE);
 
-	function AttachFile($page, $file, $age = 0)
-	{
-		$this->__construct($page, $file, $age);
-	}
 	function __construct($page, $file, $age = 0)
 	{
 		$this->page = $page;
@@ -758,10 +754,6 @@ class AttachFiles
 	var $page;
 	var $files = array();
 
-	function AttachFiles($page)
-	{
-		$this->__construct($page);
-	}
 	function __construct($page)
 	{
 		$this->page = $page;
@@ -836,10 +828,6 @@ class AttachPages
 {
 	var $pages = array();
 
-	function AttachPages($page = '', $age = NULL)
-	{
-		$this->__construct($page, $age);
-	}
 	function __construct($page = '', $age = NULL)
 	{
 
