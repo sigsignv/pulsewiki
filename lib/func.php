@@ -1253,22 +1253,6 @@ class PukiWikiStandardPageURIHandler {
 
 //// Compat ////
 
-// md5_file -- Calculates the md5 hash of a given filename
-// (PHP 4 >= 4.2.0)
-if (! function_exists('md5_file')) {
-
-	function md5_file($filename)
-	{
-		if (! file_exists($filename)) return FALSE;
-
-		$fd = fopen($filename, 'rb');
-		if ($fd === FALSE ) return FALSE;
-		$data = fread($fd, filesize($filename));
-		fclose($fd);
-		return md5($data);
-	}
-}
-
 // sha1 -- Compute SHA-1 hash
 // (PHP 4 >= 4.3.0, PHP5)
 if (! function_exists('sha1')) {
