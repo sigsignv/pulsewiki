@@ -1208,13 +1208,12 @@ function manage_page_redirect() {
 }
 
 /**
- * Return 'u' (PCRE_UTF8) if PHP7+ and UTF-8.
+ * Return 'u' (PCRE_UTF8) if UTF-8.
  */
 function get_preg_u() {
 	static $utf8u; // 'u'(PCRE_UTF8) or ''
 	if (! isset($utf8u)) {
-		if (version_compare('7.0.0', PHP_VERSION, '<=')
-			&& defined('PKWK_UTF8_ENABLE')) {
+		if (defined('PKWK_UTF8_ENABLE')) {
 			$utf8u = 'u';
 		} else {
 			$utf8u = '';
