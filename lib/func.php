@@ -1211,14 +1211,12 @@ function manage_page_redirect() {
  * Return 'u' (PCRE_UTF8) if UTF-8.
  */
 function get_preg_u() {
-	static $utf8u; // 'u'(PCRE_UTF8) or ''
-	if (! isset($utf8u)) {
-		if (defined('PKWK_UTF8_ENABLE')) {
-			$utf8u = 'u';
-		} else {
-			$utf8u = '';
-		}
+	if (defined('PKWK_UTF8_ENABLE')) {
+		$utf8u = 'u';
+	} else {
+		$utf8u = '';
 	}
+
 	return $utf8u;
 }
 
