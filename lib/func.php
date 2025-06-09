@@ -1208,19 +1208,15 @@ function manage_page_redirect() {
 }
 
 /**
- * Return 'u' (PCRE_UTF8) if PHP7+ and UTF-8.
+ * Get PCRE UTF-8 modifier for regular expressions.
+ *
+ * @return string Returns 'u' if UTF-8 is enabled, empty string if not
  */
 function get_preg_u() {
-	static $utf8u; // 'u'(PCRE_UTF8) or ''
-	if (! isset($utf8u)) {
-		if (version_compare('7.0.0', PHP_VERSION, '<=')
-			&& defined('PKWK_UTF8_ENABLE')) {
-			$utf8u = 'u';
-		} else {
-			$utf8u = '';
-		}
-	}
-	return $utf8u;
+	/*
+	 * The value of PKWK_UTF8_ENABLE does not matter, only check if it exists or not.
+	 */
+	return defined('PKWK_UTF8_ENABLE') ? 'u' : '';
 }
 
 // Default Page name - URI mapping handler
