@@ -1250,16 +1250,3 @@ class PukiWikiStandardPageURIHandler {
 		return $page2;
 	}
 }
-
-//// Compat ////
-
-// sha1 -- Compute SHA-1 hash
-// (PHP 4 >= 4.3.0, PHP5)
-if (! function_exists('sha1')) {
-	if (extension_loaded('mhash')) {
-		function sha1($str)
-		{
-			return bin2hex(mhash(MHASH_SHA1, $str));
-		}
-	}
-}
