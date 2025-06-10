@@ -7,7 +7,7 @@
 // License: GPL v2 or (at your option) any later version
 //
 
-function catbody($title, $page, $body)
+function render($title, $page, $body)
 {
 	global $vars, $arg, $defaultpage, $whatsnew, $help_page, $hr;
 	global $attach_link, $related_link, $cantedit, $function_freeze;
