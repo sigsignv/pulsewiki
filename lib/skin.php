@@ -17,7 +17,6 @@ function render($title, $page, $body)
 	global $auth_type, $auth_user;
 	global $html_meta_referrer_policy;
 
-	global $pkwk_dtd;     // XHTML 1.1, XHTML1.0, HTML 4.01 Transitional...
 	global $page_title;   // Title of this site
 	global $do_backup;    // Do backup or not
 	global $modifier;     // Site administrator's  web page
