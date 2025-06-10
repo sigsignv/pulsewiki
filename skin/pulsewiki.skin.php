@@ -68,7 +68,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo LANG ?>">
+<html lang="<?= h(LANG) ?>">
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CONTENT_CHARSET ?>" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
