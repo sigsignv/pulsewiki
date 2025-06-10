@@ -37,8 +37,6 @@ function render($title, $page, $body)
 			$enable_logout = true;
 		}
 	}
-	if (! file_exists(SKIN_FILE) || ! is_readable(SKIN_FILE))
-		die_message('SKIN_FILE is not found');
 
 	$_LINK = $_IMAGE = array();
 
@@ -162,6 +160,6 @@ function render($title, $page, $body)
 	$taketime = elapsedtime();
 
 	ob_start();
-	require(SKIN_FILE);
+	include __DIR__ . '/../skin/pulsewiki.skin.php';
 	return ob_get_clean();
 }
