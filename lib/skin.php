@@ -86,30 +86,6 @@ function render($title, $page, $body)
 	$_LINK['login']    = htmlsc($login_link);
 	$_LINK['logout']   = "$script?plugin=loginform&amp;pcmd=logout&amp;page=$r_page";
 
-	// Compat: Skins for 1.4.4 and before
-	$link_add       = & $_LINK['add'];
-	$link_new       = & $_LINK['new'];	// New!
-	$link_edit      = & $_LINK['edit'];
-	$link_diff      = & $_LINK['diff'];
-	$link_top       = & $_LINK['top'];
-	$link_list      = & $_LINK['list'];
-	$link_filelist  = & $_LINK['filelist'];
-	$link_search    = & $_LINK['search'];
-	$link_whatsnew  = & $_LINK['recent'];
-	$link_backup    = & $_LINK['backup'];
-	$link_help      = & $_LINK['help'];
-	$link_trackback = ''; // Removed (compat)
-	$link_rdf       = & $_LINK['rdf'];		// New!
-	$link_rss       = & $_LINK['rss'];
-	$link_rss10     = & $_LINK['rss10'];		// New!
-	$link_rss20     = & $_LINK['rss20'];		// New!
-	$link_freeze    = & $_LINK['freeze'];
-	$link_unfreeze  = & $_LINK['unfreeze'];
-	$link_upload    = & $_LINK['upload'];
-	$link_template  = & $_LINK['copy'];
-	$link_refer     = ''; // Removed (compat)
-	$link_rename    = & $_LINK['rename'];
-
 	// Init flags
 	$is_page = (is_pagename($_page) && ! arg_check('backup') && $_page != $whatsnew);
 	$is_read = (arg_check('read') && is_page($_page));
