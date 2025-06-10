@@ -11,6 +11,11 @@
 // Show page-content
 function catbody($title, $page, $body)
 {
+	if (defined('PULSEWIKI_VERSION')) {
+		require_once __DIR__ . '/skin.php';
+		return render($title, $page, $body);
+	}
+
 	global $vars, $arg, $defaultpage, $whatsnew, $help_page, $hr;
 	global $attach_link, $related_link, $cantedit, $function_freeze;
 	global $search_word_color, $_msg_word, $foot_explain, $note_hr, $head_tags;
