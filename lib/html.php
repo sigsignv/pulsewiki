@@ -13,7 +13,10 @@ function catbody($title, $page, $body)
 {
 	if (defined('PULSEWIKI_VERSION')) {
 		require_once __DIR__ . '/skin.php';
-		return render($title, $page, $body);
+
+		$content = render($title, $page, $body);
+		echo $content;
+		return;
 	}
 
 	global $vars, $arg, $defaultpage, $whatsnew, $help_page, $hr;

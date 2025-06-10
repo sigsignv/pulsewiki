@@ -162,5 +162,7 @@ function render($title, $page, $body)
 	// Compat: 'HTML convert time' without time about MenuBar and skin
 	$taketime = elapsedtime();
 
+	ob_start();
 	require(SKIN_FILE);
+	return ob_get_clean();
 }
