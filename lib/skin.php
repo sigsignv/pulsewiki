@@ -134,10 +134,6 @@ function render($title, $page, $body)
 	// Tags will be inserted into <head></head>
 	$head_tag = ! empty($head_tags) ? join("\n", $head_tags) ."\n" : '';
 
-	// 1.3.x compat
-	// Last modification date (UNIX timestamp) of the page
-	$fmt = $is_read ? get_filetime($_page) + LOCALZONE : 0;
-
 	// Output nofollow / noindex regardless os skin file
 	if (!$is_read || $nofollow) {
 		if (!headers_sent()) {
