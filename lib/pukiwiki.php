@@ -8,6 +8,8 @@
 //
 // PukiWiki main script
 
+define('PULSEWIKI_VERSION', '0.1.0');
+
 if (! defined('DATA_HOME')) define('DATA_HOME', '');
 
 /////////////////////////////////////////////////
