@@ -13,6 +13,10 @@
         /* Disable iOS text size auto-adjustment */
         -webkit-text-size-adjust: none;
     }
+
+    body {
+        margin: 0;
+    }
 }
 
 /*!
