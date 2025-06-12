@@ -19,6 +19,17 @@
     }
 }
 
+@layer theme {
+    :root {
+        /* Keep Verdana font to stay compatible with PukiWiki */
+        --font-sans-serif: "Verdana", sans-serif;
+    }
+
+    body {
+        font-family: var(--font-sans-serif);
+    }
+}
+
 /*!
  * PukiWiki - Yet another WikiWikiWeb clone.
  * Copyright
@@ -41,7 +52,6 @@ body,td {
   margin-left:2%;
   margin-right:2%;
   font-size:90%;
-  font-family:verdana, arial, helvetica, Sans-Serif;
 }
 textarea {
   box-sizing:border-box;
@@ -74,7 +84,6 @@ a.external-link:not(.external-link-silent)::after {
 }
 
 h1, h2 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   color:inherit;
   background-color:#DDEEFF;
   padding:.3em;
@@ -82,7 +91,6 @@ h1, h2 {
   margin:0 0 .5em 0;
 }
 h3 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   border-bottom:3px solid #DDEEFF;
   border-top:1px solid #DDEEFF;
   border-left:10px solid #DDEEFF;
@@ -94,7 +102,6 @@ h3 {
   margin:0 0 .5em 0;
 }
 h4 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   border-left:18px solid #DDEEFF;
 
   color:inherit;
@@ -103,7 +110,6 @@ h4 {
   margin:0 0 .5em 0;
 }
 h5, h6 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   color:inherit;
   background-color:#DDEEFF;
   padding:.3em;
