@@ -70,7 +70,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 <html lang="<?= h(LANG) ?>">
 <head>
   <meta charset="<?= h(CONTENT_CHARSET) ?>" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 <?php if ($nofollow || ! $is_read)  { ?> <meta name="robots" content="NOINDEX,NOFOLLOW" /><?php } ?>
 <?php if ($html_meta_referrer_policy) { ?> <meta name="referrer" content="<?php echo htmlsc(html_meta_referrer_policy) ?>" /><?php } ?>
 
