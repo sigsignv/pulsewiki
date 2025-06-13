@@ -51,6 +51,11 @@ $rightbar = FALSE;
 if (arg_check('read') && exist_plugin_convert('rightbar')) {
 	$rightbar = do_plugin_convert('rightbar');
 }
+
+function h($str) {
+	return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, "UTF-8");
+}
+
 // ------------------------------------------------------------
 // Output
 
