@@ -60,6 +60,10 @@ function print_robots_meta_tag($cond) {
 	return $cond ? '<meta name="robots" content="noindex, nofollow" />' : '';
 }
 
+function print_referrer_policy_meta_tag($policy) {
+	return $policy ? '<meta name="referrer" content="' . h($policy) . '" />' : '';
+}
+
 // ------------------------------------------------------------
 // Output
 
@@ -76,7 +80,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
   <meta charset="<?= h(CONTENT_CHARSET) ?>" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <?= print_robots_meta_tag($nofollow || ! $is_read) ?>
-<?php if ($html_meta_referrer_policy) { ?> <meta name="referrer" content="<?php echo htmlsc(html_meta_referrer_policy) ?>" /><?php } ?>
+  <?= print_referrer_policy_meta_tag($html_meta_referrer_policy) ?>
 
  <title><?php echo $title ?> - <?php echo $page_title ?></title>
 
