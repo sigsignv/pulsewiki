@@ -90,10 +90,10 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
   <title><?= $title ?> - <?= h($page_title) ?></title>
 
   <?= print_favicon_link_tag($image['favicon']) ?>
- <link rel="stylesheet" type="text/css" href="<?php echo SKIN_DIR ?>reverb.css" />
+  <link rel="stylesheet" href="skin/reverb.css" />
  <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo $link['rss'] ?>" /><?php // RSS auto-discovery ?>
- <script type="text/javascript" src="skin/main.js" defer></script>
- <script type="text/javascript" src="skin/search2.js" defer></script>
+  <script src="skin/main.js" defer></script>
+  <script src="skin/search2.js" defer></script>
 
 <?php echo $head_tag ?>
 </head>
