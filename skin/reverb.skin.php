@@ -64,6 +64,10 @@ function print_referrer_policy_meta_tag($policy) {
 	return $policy ? '<meta name="referrer" content="' . h($policy) . '" />' . "\n" : '';
 }
 
+function print_favicon_link_tag($favicon) {
+	return $favicon ? '<link rel="icon" href="' . h($favicon) . '" />' . "\n" : '';
+}
+
 // ------------------------------------------------------------
 // Output
 
@@ -85,7 +89,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
   <?php /* $title is already escaped in html.php */ ?>
   <title><?= $title ?> - <?= h($page_title) ?></title>
 
- <link rel="SHORTCUT ICON" href="<?php echo $image['favicon'] ?>" />
+  <?= print_favicon_link_tag($image['favicon']) ?>
  <link rel="stylesheet" type="text/css" href="<?php echo SKIN_DIR ?>reverb.css" />
  <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo $link['rss'] ?>" /><?php // RSS auto-discovery ?>
  <script type="text/javascript" src="skin/main.js" defer></script>
