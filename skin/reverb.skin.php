@@ -51,6 +51,23 @@ $rightbar = FALSE;
 if (arg_check('read') && exist_plugin_convert('rightbar')) {
 	$rightbar = do_plugin_convert('rightbar');
 }
+
+function h($str) {
+	return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, "UTF-8");
+}
+
+function print_robots_meta_tag($cond) {
+	return $cond ? '<meta name="robots" content="noindex, nofollow" />' . "\n" : '';
+}
+
+function print_referrer_policy_meta_tag($policy) {
+	return $policy ? '<meta name="referrer" content="' . h($policy) . '" />' . "\n" : '';
+}
+
+function print_favicon_link_tag($favicon) {
+	return $favicon ? '<link rel="icon" href="' . h($favicon) . '" />' . "\n" : '';
+}
+
 // ------------------------------------------------------------
 // Output
 
@@ -62,20 +79,22 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo LANG ?>">
+<html lang="<?= h(LANG) ?>">
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CONTENT_CHARSET ?>" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<?php if ($nofollow || ! $is_read)  { ?> <meta name="robots" content="NOINDEX,NOFOLLOW" /><?php } ?>
-<?php if ($html_meta_referrer_policy) { ?> <meta name="referrer" content="<?php echo htmlsc(html_meta_referrer_policy) ?>" /><?php } ?>
+  <meta charset="<?= h(CONTENT_CHARSET) ?>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <?= print_robots_meta_tag($nofollow || ! $is_read) ?>
+  <?= print_referrer_policy_meta_tag($html_meta_referrer_policy) ?>
 
- <title><?php echo $title ?> - <?php echo $page_title ?></title>
+  <?php /* $title is already escaped in html.php */ ?>
+  <title><?= $title ?> - <?= h($page_title) ?></title>
 
- <link rel="SHORTCUT ICON" href="<?php echo $image['favicon'] ?>" />
- <link rel="stylesheet" type="text/css" href="<?php echo SKIN_DIR ?>reverb.css" />
- <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo $link['rss'] ?>" /><?php // RSS auto-discovery ?>
- <script type="text/javascript" src="skin/main.js" defer></script>
- <script type="text/javascript" src="skin/search2.js" defer></script>
+  <?= print_favicon_link_tag($image['favicon']) ?>
+  <link rel="stylesheet" href="skin/reverb.css" />
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="<?= h($link['rss']) ?>" />
+
+  <script src="skin/main.js" defer></script>
+  <script src="skin/search2.js" defer></script>
 
 <?php echo $head_tag ?>
 </head>
