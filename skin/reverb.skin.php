@@ -57,11 +57,11 @@ function h($str) {
 }
 
 function print_robots_meta_tag($cond) {
-	return $cond ? '<meta name="robots" content="noindex, nofollow" />' : '';
+	return $cond ? '<meta name="robots" content="noindex, nofollow" />' . "\n" : '';
 }
 
 function print_referrer_policy_meta_tag($policy) {
-	return $policy ? '<meta name="referrer" content="' . h($policy) . '" />' : '';
+	return $policy ? '<meta name="referrer" content="' . h($policy) . '" />' . "\n" : '';
 }
 
 // ------------------------------------------------------------
