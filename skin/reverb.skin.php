@@ -82,7 +82,8 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
   <?= print_robots_meta_tag($nofollow || ! $is_read) ?>
   <?= print_referrer_policy_meta_tag($html_meta_referrer_policy) ?>
 
- <title><?php echo $title ?> - <?php echo $page_title ?></title>
+  <?php /* $title is already escaped in html.php */ ?>
+  <title><?= $title ?> - <?= h($page_title) ?></title>
 
  <link rel="SHORTCUT ICON" href="<?php echo $image['favicon'] ?>" />
  <link rel="stylesheet" type="text/css" href="<?php echo SKIN_DIR ?>reverb.css" />
