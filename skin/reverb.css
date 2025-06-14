@@ -17,6 +17,14 @@
     body {
         margin: 0;
     }
+
+    code,
+    kbd,
+    samp,
+    pre {
+        font-family: monospace, monospace;
+        font-size: 1em;
+    }
 }
 
 /*!
