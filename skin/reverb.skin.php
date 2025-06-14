@@ -56,6 +56,10 @@ function h($str) {
 	return htmlspecialchars($str, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, "UTF-8");
 }
 
+function print_robots_meta_tag($cond) {
+	return $cond ? '<meta name="robots" content="noindex, nofollow" />' : '';
+}
+
 // ------------------------------------------------------------
 // Output
 
@@ -71,7 +75,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 <head>
   <meta charset="<?= h(CONTENT_CHARSET) ?>" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-<?php if ($nofollow || ! $is_read)  { ?> <meta name="robots" content="NOINDEX,NOFOLLOW" /><?php } ?>
+  <?= print_robots_meta_tag($nofollow || ! $is_read) ?>
 <?php if ($html_meta_referrer_policy) { ?> <meta name="referrer" content="<?php echo htmlsc(html_meta_referrer_policy) ?>" /><?php } ?>
 
  <title><?php echo $title ?> - <?php echo $page_title ?></title>
