@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+@layer base {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+}
+
 /*!
  * PukiWiki - Yet another WikiWikiWeb clone.
  * Copyright
