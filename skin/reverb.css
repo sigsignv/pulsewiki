@@ -404,7 +404,6 @@ div#menubar {
   margin:4px;
   font-size:90%;
   overflow:hidden;
-  order:1;
   flex-grow:0;
 }
 div#menubar ul {
@@ -425,7 +424,6 @@ div#menubar h4 {
   margin:4px;
   font-size:90%;
   overflow:hidden;
-  order:3;
   flex-grow:0;
 }
 #rightbar ul {
@@ -443,7 +441,6 @@ div#body {
   padding:0;
   margin:0 0 0 .5em;
   max-width:98%;
-  order:2;
   flex-grow:1;
 }
 
@@ -774,16 +771,11 @@ tr.bugtrack_state_undef td {
     width:auto;
     max-width:none;
     font-size:100%;
-    order:2;
   }
   div#rightbar {
     width:auto;
     max-width:none;
     font-size:100%;
-    order:3;
-  }
-  div#body {
-    order:1;
   }
   div#body img {
     max-width:95%;
