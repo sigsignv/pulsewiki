@@ -68,6 +68,42 @@ function print_favicon_link_tag($favicon) {
 	return $favicon ? '<link rel="icon" href="' . h($favicon) . '" />' . "\n" : '';
 }
 
+$_IMAGE['skin']['edit']     = 'edit.png';
+$_IMAGE['skin']['freeze']   = 'freeze.png';
+$_IMAGE['skin']['unfreeze'] = 'unfreeze.png';
+$_IMAGE['skin']['diff']     = 'diff.png';
+$_IMAGE['skin']['backup']   = 'backup.png';
+$_IMAGE['skin']['upload']   = 'file.png';
+$_IMAGE['skin']['copy']     = 'copy.png';
+$_IMAGE['skin']['rename']   = 'rename.png';
+$_IMAGE['skin']['reload']   = 'reload.png';
+
+function print_navlink($cond, $key) {
+	if (!$cond) {
+		return "";
+	}
+
+	// link icon
+	$i = $GLOBALS['_IMAGE']['skin'];
+	$img = isset($i[$key]) ? '<img src="' . h(IMAGE_DIR . $i[$key]) . '" />' : '';
+
+	// link url
+	$u = $GLOBALS['_LINK'];
+	$url = isset($u[$key]) ? $u[$key] : '';
+
+	// link text
+	$m = $GLOBALS['_LANG']['skin'];
+	$text = isset($m[$key]) ? $m[$key] : $key;
+
+	$template = <<<EOS
+<div class="nav-item">
+	<a href="{$url}">{$img}{$text}</a>
+</div>
+EOS;
+
+	return $template;
+}
+
 // ------------------------------------------------------------
 // Output
 
@@ -135,25 +171,6 @@ function _navigator($key, $value = '', $javascript = ''){
 ?>
  [ <?php _navigator('top') ?> ] &nbsp;
 
-<?php if ($is_page) { ?>
- [
- <?php if ($rw) { ?>
-	<?php _navigator('edit') ?> |
-	<?php if ($is_read && $function_freeze) { ?>
-		<?php (! $is_freeze) ? _navigator('freeze') : _navigator('unfreeze') ?> |
-	<?php } ?>
- <?php } ?>
- <?php _navigator('diff') ?>
- <?php if ($do_backup) { ?>
-	| <?php _navigator('backup') ?>
- <?php } ?>
- <?php if ($rw && (bool)ini_get('file_uploads')) { ?>
-	| <?php _navigator('upload') ?>
- <?php } ?>
- | <?php _navigator('reload') ?>
- ] &nbsp;
-<?php } ?>
-
  [
  <?php if ($rw) { ?>
 	<?php _navigator('new') ?> |
@@ -180,6 +197,18 @@ function _navigator($key, $value = '', $javascript = ''){
 <div id="contents">
  <div id="body"><?php echo $body ?></div>
  <div id="sidebar">
+<?php if ($is_page) { ?>
+  <nav id="sidebar-nav">
+   <?= print_navlink($rw, 'edit') ?>
+   <?= print_navlink($rw && $is_read && $function_freeze, $is_freeze ? 'unfreeze' : 'freeze') ?>
+   <?= print_navlink(true, 'diff'); ?>
+   <?= print_navlink($do_backup, 'backup') ?>
+   <?= print_navlink($rw && (bool)ini_get('file_uploads'), 'upload') ?>
+   <?= print_navlink($rw, 'copy') ?>
+   <?= print_navlink($rw, 'rename') ?>
+   <?= print_navlink(true, 'reload') ?>
+  </nav>
+<?php } ?>
 <?php if ($menu) { ?>
  <div id="menubar"><?php echo $menu ?></div>
 <?php } ?>
@@ -208,20 +237,11 @@ function _navigator($key, $value = '', $javascript = ''){
 <?php
 
 // Set toolbar-specific images
-$_IMAGE['skin']['reload']   = 'reload.png';
 $_IMAGE['skin']['new']      = 'new.png';
-$_IMAGE['skin']['edit']     = 'edit.png';
-$_IMAGE['skin']['freeze']   = 'freeze.png';
-$_IMAGE['skin']['unfreeze'] = 'unfreeze.png';
-$_IMAGE['skin']['diff']     = 'diff.png';
-$_IMAGE['skin']['upload']   = 'file.png';
-$_IMAGE['skin']['copy']     = 'copy.png';
-$_IMAGE['skin']['rename']   = 'rename.png';
 $_IMAGE['skin']['top']      = 'top.png';
 $_IMAGE['skin']['list']     = 'list.png';
 $_IMAGE['skin']['search']   = 'search.png';
 $_IMAGE['skin']['recent']   = 'recentchanges.png';
-$_IMAGE['skin']['backup']   = 'backup.png';
 $_IMAGE['skin']['help']     = 'help.png';
 $_IMAGE['skin']['rss']      = 'rss.png';
 $_IMAGE['skin']['rss10']    = & $_IMAGE['skin']['rss'];
@@ -245,27 +265,6 @@ function _toolbar($key, $x = 20, $y = 20){
 ?>
  <?php _toolbar('top') ?>
 
-<?php if ($is_page) { ?>
- &nbsp;
- <?php if ($rw) { ?>
-	<?php _toolbar('edit') ?>
-	<?php if ($is_read && $function_freeze) { ?>
-		<?php if (! $is_freeze) { _toolbar('freeze'); } else { _toolbar('unfreeze'); } ?>
-	<?php } ?>
- <?php } ?>
- <?php _toolbar('diff') ?>
-<?php if ($do_backup) { ?>
-	<?php _toolbar('backup') ?>
-<?php } ?>
-<?php if ($rw) { ?>
-	<?php if ((bool)ini_get('file_uploads')) { ?>
-		<?php _toolbar('upload') ?>
-	<?php } ?>
-	<?php _toolbar('copy') ?>
-	<?php _toolbar('rename') ?>
-<?php } ?>
- <?php _toolbar('reload') ?>
-<?php } ?>
  &nbsp;
 <?php if ($rw) { ?>
 	<?php _toolbar('new') ?>
