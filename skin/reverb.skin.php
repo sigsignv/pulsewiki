@@ -21,11 +21,6 @@ $_IMAGE['skin']['favicon']  = ''; // Sample: 'image/favicon.ico';
 if (! defined('SKIN_DEFAULT_DISABLE_TOPICPATH'))
 	define('SKIN_DEFAULT_DISABLE_TOPICPATH', 1); // 1, 0
 
-// Show / Hide toolbar UI at your choice
-// NOTE: This is not stop their functionalities!
-if (! defined('PKWK_SKIN_SHOW_TOOLBAR'))
-	define('PKWK_SKIN_SHOW_TOOLBAR', 1); // 1, 0
-
 // ------------------------------------------------------------
 // Code start
 
@@ -208,36 +203,8 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 	<?= print_navlink($enable_logout, 'logout') ?>
 </nav>
 
-<?php if (PKWK_SKIN_SHOW_TOOLBAR) { ?>
-<!-- Toolbar -->
 <div id="toolbar">
-<?php
-
-// Set toolbar-specific images
-$_IMAGE['skin']['top']      = 'top.png';
-$_IMAGE['skin']['rss']      = 'rss.png';
-$_IMAGE['skin']['rss10']    = & $_IMAGE['skin']['rss'];
-$_IMAGE['skin']['rss20']    = 'rss20.png';
-$_IMAGE['skin']['rdf']      = 'rdf.png';
-
-function _toolbar($key, $x = 20, $y = 20){
-	$lang  = & $GLOBALS['_LANG']['skin'];
-	$link  = & $GLOBALS['_LINK'];
-	$image = & $GLOBALS['_IMAGE']['skin'];
-	if (! isset($lang[$key]) ) { echo 'LANG NOT FOUND';  return FALSE; }
-	if (! isset($link[$key]) ) { echo 'LINK NOT FOUND';  return FALSE; }
-	if (! isset($image[$key])) { echo 'IMAGE NOT FOUND'; return FALSE; }
-
-	echo '<a href="' . $link[$key] . '">' .
-		'<img src="' . IMAGE_DIR . $image[$key] . '" width="' . $x . '" height="' . $y . '" ' .
-			'alt="' . $lang[$key] . '" title="' . $lang[$key] . '" />' .
-		'</a>';
-	return TRUE;
-}
-?>
- <?php _toolbar('top') ?>
 </div>
-<?php } // PKWK_SKIN_SHOW_TOOLBAR ?>
 
 <?php if ($lastmodified != '') { ?>
 <div id="lastmodified">Last-modified: <?php echo $lastmodified ?></div>

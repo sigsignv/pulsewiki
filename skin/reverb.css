@@ -504,9 +504,6 @@ div#attach {
 }
 div#toolbar {
   clear:both;
-  padding:0;
-  margin:0;
-  text-align:right;
 }
 div#lastmodified {
   font-size:80%;
@@ -870,8 +867,7 @@ tr.bugtrack_state_undef td {
   div#menubar,
   div#rightbar,
   div#related,
-  div#attach,
-  div#toolbar {
+  div#attach {
     display:none;
   }
 }
