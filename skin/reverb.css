@@ -27,6 +27,10 @@
     }
 }
 
+:root {
+    --layout-spacing: 4px;
+}
+
 /*!
  * PukiWiki - Yet another WikiWikiWeb clone.
  * Copyright
@@ -395,13 +399,12 @@ div#contents {
   word-break:break-all;
   overflow-wrap:break-word;
   word-wrap:break-word;
+  gap: var(--layout-spacing);
 }
 
 div#menubar {
   min-width:12em;
   max-width:12em;
-  padding:0;
-  margin:4px;
   font-size:90%;
   overflow:hidden;
   flex-grow:0;
@@ -420,8 +423,6 @@ div#menubar h4 {
 #rightbar {
   min-width:14em;
   max-width:14em;
-  padding:0;
-  margin:4px;
   font-size:90%;
   overflow:hidden;
   flex-grow:0;
@@ -438,9 +439,6 @@ div#menubar h4 {
 }
 
 div#body {
-  padding:0;
-  margin:0 0 0 .5em;
-  max-width:98%;
   flex-grow:1;
 }
 
