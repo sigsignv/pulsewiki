@@ -67,6 +67,17 @@
         background-color: #f2f2f2;
     }
 
+    #footer-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+
+        padding: 1rem;
+
+        background-color: #f2f2f2;
+    }
+
     @media (max-width: 767px) {
         #contents {
             flex-direction: column;
@@ -74,6 +85,12 @@
 
         #sidebar {
             width: auto;
+        }
+
+        #footer-nav {
+            flex-direction: column;
+            gap: var(--layout-spacing);
+            align-items: center;
         }
     }
 }

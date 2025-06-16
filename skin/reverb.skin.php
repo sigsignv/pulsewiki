@@ -78,6 +78,12 @@ $_IMAGE['skin']['copy']     = 'copy.png';
 $_IMAGE['skin']['rename']   = 'rename.png';
 $_IMAGE['skin']['reload']   = 'reload.png';
 
+$_IMAGE['skin']['new']      = 'new.png';
+$_IMAGE['skin']['list']     = 'list.png';
+$_IMAGE['skin']['search']   = 'search.png';
+$_IMAGE['skin']['recent']   = 'recentchanges.png';
+$_IMAGE['skin']['help']     = 'help.png';
+
 function print_navlink($cond, $key) {
 	if (!$cond) {
 		return "";
@@ -171,24 +177,6 @@ function _navigator($key, $value = '', $javascript = ''){
 ?>
  [ <?php _navigator('top') ?> ] &nbsp;
 
- [
- <?php if ($rw) { ?>
-	<?php _navigator('new') ?> |
- <?php } ?>
-   <?php _navigator('list') ?>
- <?php if (arg_check('list')) { ?>
-	| <?php _navigator('filelist') ?>
- <?php } ?>
- | <?php _navigator('search') ?>
- | <?php _navigator('recent') ?>
- | <?php _navigator('help')   ?>
- <?php if ($enable_login) { ?>
- | <?php _navigator('login') ?>
- <?php } ?>
- <?php if ($enable_logout) { ?>
- | <?php _navigator('logout') ?>
- <?php } ?>
- ]
 <?php } // PKWK_SKIN_SHOW_NAVBAR ?>
 </div>
 
@@ -231,18 +219,25 @@ function _navigator($key, $value = '', $javascript = ''){
 
 <?php echo $hr ?>
 
+<nav id="footer-nav">
+	<?= print_navlink($rw, 'new') ?>
+	<?= print_navlink(true, 'list') ?>
+	<?= print_navlink(arg_check('list'), 'filelist') ?>
+	<?= print_navlink(true, 'search') ?>
+	<?= print_navlink(true, 'recent') ?>
+	<?= print_navlink(true, 'rss') ?>
+	<?= print_navlink(true, 'help') ?>
+	<?= print_navlink($enable_login, 'login') ?>
+	<?= print_navlink($enable_logout, 'logout') ?>
+</nav>
+
 <?php if (PKWK_SKIN_SHOW_TOOLBAR) { ?>
 <!-- Toolbar -->
 <div id="toolbar">
 <?php
 
 // Set toolbar-specific images
-$_IMAGE['skin']['new']      = 'new.png';
 $_IMAGE['skin']['top']      = 'top.png';
-$_IMAGE['skin']['list']     = 'list.png';
-$_IMAGE['skin']['search']   = 'search.png';
-$_IMAGE['skin']['recent']   = 'recentchanges.png';
-$_IMAGE['skin']['help']     = 'help.png';
 $_IMAGE['skin']['rss']      = 'rss.png';
 $_IMAGE['skin']['rss10']    = & $_IMAGE['skin']['rss'];
 $_IMAGE['skin']['rss20']    = 'rss20.png';
@@ -264,16 +259,6 @@ function _toolbar($key, $x = 20, $y = 20){
 }
 ?>
  <?php _toolbar('top') ?>
-
- &nbsp;
-<?php if ($rw) { ?>
-	<?php _toolbar('new') ?>
-<?php } ?>
- <?php _toolbar('list')   ?>
- <?php _toolbar('search') ?>
- <?php _toolbar('recent') ?>
- &nbsp; <?php _toolbar('help') ?>
- &nbsp; <?php _toolbar('rss10', 36, 14) ?>
 </div>
 <?php } // PKWK_SKIN_SHOW_TOOLBAR ?>
 
