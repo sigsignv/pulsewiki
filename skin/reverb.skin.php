@@ -179,12 +179,14 @@ function _navigator($key, $value = '', $javascript = ''){
 
 <div id="contents">
  <div id="body"><?php echo $body ?></div>
+ <div id="sidebar">
 <?php if ($menu) { ?>
  <div id="menubar"><?php echo $menu ?></div>
 <?php } ?>
 <?php if ($rightbar) { ?>
  <div id="rightbar"><?php echo $rightbar ?></div>
 <?php } ?>
+ </div>
 </div>
 
 <?php if ($notes != '') { ?>
