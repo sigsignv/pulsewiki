@@ -453,8 +453,6 @@ div#header {
 
 div#navigator {
   clear:both;
-  padding:4px 0 0 0;
-  margin:0;
 }
 
 div#contents {
@@ -869,7 +867,6 @@ tr.bugtrack_state_undef td {
     text-decoration:underline;
   }
   img#logo,
-  div#navigator,
   div#menubar,
   div#rightbar,
   div#related,

@@ -21,11 +21,6 @@ $_IMAGE['skin']['favicon']  = ''; // Sample: 'image/favicon.ico';
 if (! defined('SKIN_DEFAULT_DISABLE_TOPICPATH'))
 	define('SKIN_DEFAULT_DISABLE_TOPICPATH', 1); // 1, 0
 
-// Show / Hide navigation bar UI at your choice
-// NOTE: This is not stop their functionalities!
-if (! defined('PKWK_SKIN_SHOW_NAVBAR'))
-	define('PKWK_SKIN_SHOW_NAVBAR', 1); // 1, 0
-
 // Show / Hide toolbar UI at your choice
 // NOTE: This is not stop their functionalities!
 if (! defined('PKWK_SKIN_SHOW_TOOLBAR'))
@@ -160,24 +155,6 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 </div>
 
 <div id="navigator">
-<?php if(PKWK_SKIN_SHOW_NAVBAR) { ?>
-<?php
-function _navigator($key, $value = '', $javascript = ''){
-	$lang = & $GLOBALS['_LANG']['skin'];
-	$link = & $GLOBALS['_LINK'];
-	if (! isset($lang[$key])) { echo 'LANG NOT FOUND'; return FALSE; }
-	if (! isset($link[$key])) { echo 'LINK NOT FOUND'; return FALSE; }
-
-	echo '<a href="' . $link[$key] . '" ' . $javascript . '>' .
-		(($value === '') ? $lang[$key] : $value) .
-		'</a>';
-
-	return TRUE;
-}
-?>
- [ <?php _navigator('top') ?> ] &nbsp;
-
-<?php } // PKWK_SKIN_SHOW_NAVBAR ?>
 </div>
 
 <?php echo $hr ?>
