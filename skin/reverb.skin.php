@@ -149,7 +149,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 
 </div>
 
-<div id="navigator">
+<div class="clear">
 </div>
 
 <?php echo $hr ?>
@@ -203,7 +203,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 	<?= print_navlink($enable_logout, 'logout') ?>
 </nav>
 
-<div id="toolbar">
+<div class="clear">
 </div>
 
 <?php if ($lastmodified != '') { ?>

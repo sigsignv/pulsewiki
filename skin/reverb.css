@@ -451,10 +451,6 @@ div#header {
   word-break:break-all;
 }
 
-div#navigator {
-  clear:both;
-}
-
 div#contents {
   word-break:break-all;
   overflow-wrap:break-word;
@@ -501,9 +497,6 @@ div#attach {
   clear:both;
   padding:0;
   margin:0;
-}
-div#toolbar {
-  clear:both;
 }
 div#lastmodified {
   font-size:80%;
