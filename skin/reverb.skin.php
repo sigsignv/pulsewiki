@@ -21,16 +21,6 @@ $_IMAGE['skin']['favicon']  = ''; // Sample: 'image/favicon.ico';
 if (! defined('SKIN_DEFAULT_DISABLE_TOPICPATH'))
 	define('SKIN_DEFAULT_DISABLE_TOPICPATH', 1); // 1, 0
 
-// Show / Hide navigation bar UI at your choice
-// NOTE: This is not stop their functionalities!
-if (! defined('PKWK_SKIN_SHOW_NAVBAR'))
-	define('PKWK_SKIN_SHOW_NAVBAR', 1); // 1, 0
-
-// Show / Hide toolbar UI at your choice
-// NOTE: This is not stop their functionalities!
-if (! defined('PKWK_SKIN_SHOW_TOOLBAR'))
-	define('PKWK_SKIN_SHOW_TOOLBAR', 1); // 1, 0
-
 // ------------------------------------------------------------
 // Code start
 
@@ -77,6 +67,12 @@ $_IMAGE['skin']['upload']   = 'file.png';
 $_IMAGE['skin']['copy']     = 'copy.png';
 $_IMAGE['skin']['rename']   = 'rename.png';
 $_IMAGE['skin']['reload']   = 'reload.png';
+
+$_IMAGE['skin']['new']      = 'new.png';
+$_IMAGE['skin']['list']     = 'list.png';
+$_IMAGE['skin']['search']   = 'search.png';
+$_IMAGE['skin']['recent']   = 'recentchanges.png';
+$_IMAGE['skin']['help']     = 'help.png';
 
 function print_navlink($cond, $key) {
 	if (!$cond) {
@@ -153,43 +149,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 
 </div>
 
-<div id="navigator">
-<?php if(PKWK_SKIN_SHOW_NAVBAR) { ?>
-<?php
-function _navigator($key, $value = '', $javascript = ''){
-	$lang = & $GLOBALS['_LANG']['skin'];
-	$link = & $GLOBALS['_LINK'];
-	if (! isset($lang[$key])) { echo 'LANG NOT FOUND'; return FALSE; }
-	if (! isset($link[$key])) { echo 'LINK NOT FOUND'; return FALSE; }
-
-	echo '<a href="' . $link[$key] . '" ' . $javascript . '>' .
-		(($value === '') ? $lang[$key] : $value) .
-		'</a>';
-
-	return TRUE;
-}
-?>
- [ <?php _navigator('top') ?> ] &nbsp;
-
- [
- <?php if ($rw) { ?>
-	<?php _navigator('new') ?> |
- <?php } ?>
-   <?php _navigator('list') ?>
- <?php if (arg_check('list')) { ?>
-	| <?php _navigator('filelist') ?>
- <?php } ?>
- | <?php _navigator('search') ?>
- | <?php _navigator('recent') ?>
- | <?php _navigator('help')   ?>
- <?php if ($enable_login) { ?>
- | <?php _navigator('login') ?>
- <?php } ?>
- <?php if ($enable_logout) { ?>
- | <?php _navigator('logout') ?>
- <?php } ?>
- ]
-<?php } // PKWK_SKIN_SHOW_NAVBAR ?>
+<div class="clear">
 </div>
 
 <?php echo $hr ?>
@@ -231,51 +191,20 @@ function _navigator($key, $value = '', $javascript = ''){
 
 <?php echo $hr ?>
 
-<?php if (PKWK_SKIN_SHOW_TOOLBAR) { ?>
-<!-- Toolbar -->
-<div id="toolbar">
-<?php
+<nav id="footer-nav">
+	<?= print_navlink($rw, 'new') ?>
+	<?= print_navlink(true, 'list') ?>
+	<?= print_navlink(arg_check('list'), 'filelist') ?>
+	<?= print_navlink(true, 'search') ?>
+	<?= print_navlink(true, 'recent') ?>
+	<?= print_navlink(true, 'rss') ?>
+	<?= print_navlink(true, 'help') ?>
+	<?= print_navlink($enable_login, 'login') ?>
+	<?= print_navlink($enable_logout, 'logout') ?>
+</nav>
 
-// Set toolbar-specific images
-$_IMAGE['skin']['new']      = 'new.png';
-$_IMAGE['skin']['top']      = 'top.png';
-$_IMAGE['skin']['list']     = 'list.png';
-$_IMAGE['skin']['search']   = 'search.png';
-$_IMAGE['skin']['recent']   = 'recentchanges.png';
-$_IMAGE['skin']['help']     = 'help.png';
-$_IMAGE['skin']['rss']      = 'rss.png';
-$_IMAGE['skin']['rss10']    = & $_IMAGE['skin']['rss'];
-$_IMAGE['skin']['rss20']    = 'rss20.png';
-$_IMAGE['skin']['rdf']      = 'rdf.png';
-
-function _toolbar($key, $x = 20, $y = 20){
-	$lang  = & $GLOBALS['_LANG']['skin'];
-	$link  = & $GLOBALS['_LINK'];
-	$image = & $GLOBALS['_IMAGE']['skin'];
-	if (! isset($lang[$key]) ) { echo 'LANG NOT FOUND';  return FALSE; }
-	if (! isset($link[$key]) ) { echo 'LINK NOT FOUND';  return FALSE; }
-	if (! isset($image[$key])) { echo 'IMAGE NOT FOUND'; return FALSE; }
-
-	echo '<a href="' . $link[$key] . '">' .
-		'<img src="' . IMAGE_DIR . $image[$key] . '" width="' . $x . '" height="' . $y . '" ' .
-			'alt="' . $lang[$key] . '" title="' . $lang[$key] . '" />' .
-		'</a>';
-	return TRUE;
-}
-?>
- <?php _toolbar('top') ?>
-
- &nbsp;
-<?php if ($rw) { ?>
-	<?php _toolbar('new') ?>
-<?php } ?>
- <?php _toolbar('list')   ?>
- <?php _toolbar('search') ?>
- <?php _toolbar('recent') ?>
- &nbsp; <?php _toolbar('help') ?>
- &nbsp; <?php _toolbar('rss10', 36, 14) ?>
+<div class="clear">
 </div>
-<?php } // PKWK_SKIN_SHOW_TOOLBAR ?>
 
 <?php if ($lastmodified != '') { ?>
 <div id="lastmodified">Last-modified: <?php echo $lastmodified ?></div>
