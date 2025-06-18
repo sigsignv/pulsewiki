@@ -125,6 +125,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
   <link rel="stylesheet" href="skin/reverb.css" />
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<?= h($link['rss']) ?>" />
 
+  <script src="skin/bundle.js" defer></script>
   <script src="skin/main.js" defer></script>
   <script src="skin/search2.js" defer></script>
 
