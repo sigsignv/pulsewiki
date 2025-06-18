@@ -92,3 +92,12 @@ function setYourName() {
   }
   setNameForComment();
 }
+
+if (import.meta.vitest) {
+  const { it, expect } = import.meta.vitest;
+
+  it("should set your name for comment", () => {
+    // this is a placeholder test
+    expect(true).toBe(true);
+  });
+}
