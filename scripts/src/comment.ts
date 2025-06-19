@@ -43,11 +43,9 @@ function setYourName() {
     return null;
   }
   function handleCommentPlugin(form) {
-    let namePrevious = "";
     const nameKey = getNameKey(form);
-    if (typeof localStorage !== "undefined") {
-      namePrevious = localStorage[nameKey];
-    }
+    const namePrevious = localStorage[nameKey];
+
     const onFocusForm = () => {
       if (form.name && !form.name.value && namePrevious) {
         form.name.value = namePrevious;
@@ -68,9 +66,7 @@ function setYourName() {
     form.addEventListener(
       "submit",
       () => {
-        if (typeof localStorage !== "undefined") {
-          localStorage[nameKey] = form.name.value;
-        }
+        localStorage[nameKey] = form.name.value;
       },
       false,
     );
