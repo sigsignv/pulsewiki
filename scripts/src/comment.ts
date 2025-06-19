@@ -92,10 +92,9 @@ function setYourName() {
     );
   }
   function setNameForComment() {
-    if (!document.querySelectorAll) return;
     const elements = getCommentPluginElements(document.documentElement);
-    for (let i = 0; i < elements.length; i++) {
-      const form = getForm(elements[i]);
+    for (const elm of elements) {
+      const form = getForm(elm);
       if (form) {
         handleCommentPlugin(form);
       }
