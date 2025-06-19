@@ -15,10 +15,13 @@
         setName(name) {
             localStorage.setItem(this.key, name);
         }
+        static fromBasePath(basePath) {
+            const key = `path.${basePath}.pukiwiki_comment_plugin_name`;
+            return new UsernameStore(key);
+        }
     }
     // Name for comment
     function setYourName() {
-        const NAME_KEY_ID = "pukiwiki_comment_plugin_name";
         let actionPathname = null;
         function getPathname(formAction) {
             if (actionPathname)
@@ -41,11 +44,6 @@
                 return actionPathname;
             }
         }
-        function getNameKey(form) {
-            const pathname = getPathname(form.action);
-            const key = "path." + pathname + "." + NAME_KEY_ID;
-            return key;
-        }
         function getForm(element) {
             if (element.form && element.form.tagName === "FORM") {
                 return element.form;
@@ -60,8 +58,8 @@
             return null;
         }
         function handleCommentPlugin(form) {
-            const nameKey = getNameKey(form);
-            const store = new UsernameStore(nameKey);
+            const pathName = getPathname(form.action);
+            const store = UsernameStore.fromBasePath(pathName);
             const namePrevious = store.getName();
             const onFocusForm = () => {
                 if (form.name && !form.name.value && namePrevious) {
