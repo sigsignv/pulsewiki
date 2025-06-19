@@ -51,17 +51,7 @@
             }
         }
         function getForm(element) {
-            if (element.form && element.form.tagName === "FORM") {
-                return element.form;
-            }
-            let e = element.parentElement;
-            for (let i = 0; i < 5; i++) {
-                if (e.tagName === "FORM") {
-                    return e;
-                }
-                e = e.parentElement;
-            }
-            return null;
+            return element.form;
         }
         function handleCommentPlugin(form) {
             const pathName = getPathname(form.action);
