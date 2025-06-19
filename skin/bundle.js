@@ -4,6 +4,18 @@
     function keepCommentUserName() {
         setYourName();
     }
+    class UsernameStore {
+        key;
+        constructor(key) {
+            this.key = key;
+        }
+        getName() {
+            return localStorage.getItem(this.key) ?? "";
+        }
+        setName(name) {
+            localStorage.setItem(this.key, name);
+        }
+    }
     // Name for comment
     function setYourName() {
         const NAME_KEY_ID = "pukiwiki_comment_plugin_name";
@@ -49,7 +61,8 @@
         }
         function handleCommentPlugin(form) {
             const nameKey = getNameKey(form);
-            const namePrevious = localStorage[nameKey];
+            const store = new UsernameStore(nameKey);
+            const namePrevious = store.getName();
             const onFocusForm = () => {
                 if (form.name && !form.name.value && namePrevious) {
                     form.name.value = namePrevious;
@@ -69,7 +82,7 @@
                 });
             }
             form.addEventListener("submit", () => {
-                localStorage[nameKey] = form.name.value;
+                store.setName(form.name.value);
             }, false);
         }
         function setNameForComment() {

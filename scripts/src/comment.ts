@@ -2,6 +2,18 @@ export function keepCommentUserName() {
   setYourName();
 }
 
+class UsernameStore {
+  constructor(public key: string) {}
+
+  getName(): string {
+    return localStorage.getItem(this.key) ?? "";
+  }
+
+  setName(name: string): void {
+    localStorage.setItem(this.key, name);
+  }
+}
+
 // Name for comment
 function setYourName() {
   const NAME_KEY_ID = "pukiwiki_comment_plugin_name";
@@ -44,7 +56,8 @@ function setYourName() {
   }
   function handleCommentPlugin(form) {
     const nameKey = getNameKey(form);
-    const namePrevious = localStorage[nameKey];
+    const store = new UsernameStore(nameKey);
+    const namePrevious = store.getName();
 
     const onFocusForm = () => {
       if (form.name && !form.name.value && namePrevious) {
@@ -66,7 +79,7 @@ function setYourName() {
     form.addEventListener(
       "submit",
       () => {
-        localStorage[nameKey] = form.name.value;
+        store.setName(form.name.value);
       },
       false,
     );
@@ -90,10 +103,38 @@ function setYourName() {
 }
 
 if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest;
+  const { describe, it, expect, beforeEach } = import.meta.vitest;
 
-  it("should set your name for comment", () => {
-    // this is a placeholder test
-    expect(true).toBe(true);
+  describe("UsernameStore", () => {
+    beforeEach(() => {
+      localStorage.clear();
+    });
+
+    it("should return empty string when name is not saved", () => {
+      const store = new UsernameStore("test_key");
+      expect(store.getName()).toBe("");
+    });
+
+    it("should return the saved name when name is saved", () => {
+      const store = new UsernameStore("test_key");
+      store.setName("Alice");
+      expect(store.getName()).toBe("Alice");
+    });
+
+    it("should return the new name when saving again", () => {
+      const store = new UsernameStore("test_key");
+      store.setName("Alice");
+      store.setName("Bob");
+      expect(store.getName()).toBe("Bob");
+    });
+
+    it("should return the correct name for each key", () => {
+      const store1 = new UsernameStore("test_key1");
+      const store2 = new UsernameStore("test_key2");
+      store1.setName("Alice");
+      store2.setName("Bob");
+      expect(store1.getName()).toBe("Alice");
+      expect(store2.getName()).toBe("Bob");
+    });
   });
 }
