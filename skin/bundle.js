@@ -50,9 +50,6 @@
                 return actionPathname;
             }
         }
-        function getForm(element) {
-            return element.form;
-        }
         function handleCommentPlugin(form) {
             const pathName = getPathname(form.action);
             const store = UsernameStore.fromBasePath(pathName);
@@ -82,7 +79,7 @@
         function setNameForComment() {
             const elements = getCommentPluginElements(document.documentElement);
             for (const elm of elements) {
-                const form = getForm(elm);
+                const form = elm.form;
                 if (form) {
                     handleCommentPlugin(form);
                 }
