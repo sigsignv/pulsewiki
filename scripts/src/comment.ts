@@ -19,6 +19,14 @@ class UsernameStore {
   }
 }
 
+function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
+  const selector = ["comment", "pcomment", "article", "bugtrack"]
+    .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
+    .join(",");
+
+  return Array.from(root.querySelectorAll<HTMLInputElement>(selector));
+}
+
 // Name for comment
 function setYourName() {
   let actionPathname = null;
@@ -85,12 +93,7 @@ function setYourName() {
   }
   function setNameForComment() {
     if (!document.querySelectorAll) return;
-    const elements = document.querySelectorAll(
-      "input[type=hidden][name=plugin][value=comment]," +
-        "input[type=hidden][name=plugin][value=pcomment]," +
-        "input[type=hidden][name=plugin][value=article]," +
-        "input[type=hidden][name=plugin][value=bugtrack]",
-    );
+    const elements = getCommentPluginElements(document.documentElement);
     for (let i = 0; i < elements.length; i++) {
       const form = getForm(elements[i]);
       if (form) {
@@ -139,6 +142,26 @@ if (import.meta.vitest) {
     it("should create correct key with fromBasePath", () => {
       const store = UsernameStore.fromBasePath("/wiki/");
       expect(store.key).toBe("path./wiki/.pukiwiki_comment_plugin_name");
+    });
+  });
+
+  describe("getCommentPluginElements", () => {
+    it("should return an empty array when no elements match", () => {
+      const root = document.createElement("div");
+      const result = getCommentPluginElements(root);
+      expect(result).toEqual([]);
+    });
+
+    it("should return matching input elements", () => {
+      const root = document.createElement("div");
+      root.innerHTML = `
+        <input type="hidden" name="plugin" value="comment">
+        <input type="hidden" name="plugin" value="pcomment">
+        <input type="hidden" name="plugin" value="article">
+        <input type="hidden" name="plugin" value="bugtrack">
+      `;
+      const result = getCommentPluginElements(root);
+      expect(result.length).toBe(4);
     });
   });
 }

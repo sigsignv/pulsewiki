@@ -20,6 +20,12 @@
             return new UsernameStore(key);
         }
     }
+    function getCommentPluginElements(root) {
+        const selector = ["comment", "pcomment", "article", "bugtrack"]
+            .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
+            .join(",");
+        return Array.from(root.querySelectorAll(selector));
+    }
     // Name for comment
     function setYourName() {
         let actionPathname = null;
@@ -86,10 +92,7 @@
         function setNameForComment() {
             if (!document.querySelectorAll)
                 return;
-            const elements = document.querySelectorAll("input[type=hidden][name=plugin][value=comment]," +
-                "input[type=hidden][name=plugin][value=pcomment]," +
-                "input[type=hidden][name=plugin][value=article]," +
-                "input[type=hidden][name=plugin][value=bugtrack]");
+            const elements = getCommentPluginElements(document.documentElement);
             for (let i = 0; i < elements.length; i++) {
                 const form = getForm(elements[i]);
                 if (form) {
