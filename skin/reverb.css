@@ -100,6 +100,13 @@
         /* Verdana is set for PukiWiki skin compatibility */
         font-family: "Verdana", sans-serif;
     }
+
+    body {
+        /* @see: https://ics.media/entry/240411/ */
+        overflow-wrap: anywhere;
+        word-break: normal;
+        line-break: strict;
+    }
 }
 
 /*!
@@ -212,7 +219,6 @@ pre {
   margin-left:1em;
   margin-right:2em;
   white-space:pre-wrap;
-  word-wrap:break-word;
   color:black;
   background-color:#F0F8FF;
 }
@@ -450,13 +456,6 @@ strong.word9 {
 div#header {
   padding:0;
   margin:0;
-  word-break:break-all;
-}
-
-div#contents {
-  word-break:break-all;
-  overflow-wrap:break-word;
-  word-wrap:break-word;
 }
 
 div#menubar {
@@ -493,7 +492,6 @@ div#note {
   clear:both;
   padding:0;
   margin:0;
-  word-break:break-all;
 }
 div#attach {
   clear:both;
