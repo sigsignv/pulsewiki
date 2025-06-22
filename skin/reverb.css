@@ -18,6 +18,11 @@
         margin: 0;
     }
 
+    b,
+    strong {
+        font-weight: bolder;
+    }
+
     code,
     kbd,
     samp,
@@ -95,6 +100,40 @@
     }
 }
 
+@layer typography {
+    :root {
+        /* Workaround: missing italic style with Meiryo on Chrome/Edge
+         *
+         * Meiryo is a widely used Japanese font, but it does not support italic style.
+         * To display italics, another Japanese font must be set.
+         *
+         * Chrome/Edge:
+         * - Noto Sans JP is the default font (since April 2025), but some users still use Meiryo.
+         * - Chrome and Edge cannot display italics with Meiryo.
+         * Firefox:
+         * - Meiryo is the default font, but Firefox can display italics with Meiryo.
+         * - Firefox has a built-in fix (see https://bugzil.la/1351332)
+         */
+        --font-family-italic: "Verdana", "Noto Sans JP", "Yu Gothic Medium", sans-serif;
+    }
+
+    html {
+        /* Verdana is set for PukiWiki skin compatibility */
+        font-family: "Verdana", sans-serif;
+    }
+
+    body {
+        /* @see: https://ics.media/entry/240411/ */
+        overflow-wrap: anywhere;
+        word-break: normal;
+        line-break: strict;
+    }
+
+    :is(i, cite, em, var, address, dfn):lang(ja) {
+        font-family: var(--font-family-italic);
+    }
+}
+
 /*!
  * PukiWiki - Yet another WikiWikiWeb clone.
  * Copyright
@@ -117,7 +156,6 @@ body,td {
   margin-left:2%;
   margin-right:2%;
   font-size:90%;
-  font-family:verdana, arial, helvetica, Sans-Serif;
 }
 textarea {
   box-sizing:border-box;
@@ -150,7 +188,6 @@ a.external-link:not(.external-link-silent)::after {
 }
 
 h1, h2 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   color:inherit;
   background-color:#DDEEFF;
   padding:.3em;
@@ -158,7 +195,6 @@ h1, h2 {
   margin:0 0 .5em 0;
 }
 h3 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   border-bottom:3px solid #DDEEFF;
   border-top:1px solid #DDEEFF;
   border-left:10px solid #DDEEFF;
@@ -170,7 +206,6 @@ h3 {
   margin:0 0 .5em 0;
 }
 h4 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   border-left:18px solid #DDEEFF;
 
   color:inherit;
@@ -179,7 +214,6 @@ h4 {
   margin:0 0 .5em 0;
 }
 h5, h6 {
-  font-family:verdana, arial, helvetica, Sans-Serif;
   color:inherit;
   background-color:#DDEEFF;
   padding:.3em;
@@ -210,7 +244,6 @@ pre {
   margin-left:1em;
   margin-right:2em;
   white-space:pre-wrap;
-  word-wrap:break-word;
   color:black;
   background-color:#F0F8FF;
 }
@@ -224,14 +257,6 @@ ul {
   margin-top:.5em;
   margin-bottom:.5em;
   line-height:130%;
-}
-
-em {
-  font-style:italic;
-}
-
-strong {
-  font-weight:bold;
 }
 
 thead td.style_td,
@@ -448,13 +473,6 @@ strong.word9 {
 div#header {
   padding:0;
   margin:0;
-  word-break:break-all;
-}
-
-div#contents {
-  word-break:break-all;
-  overflow-wrap:break-word;
-  word-wrap:break-word;
 }
 
 div#menubar {
@@ -491,7 +509,6 @@ div#note {
   clear:both;
   padding:0;
   margin:0;
-  word-break:break-all;
 }
 div#attach {
   clear:both;
