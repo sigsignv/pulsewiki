@@ -132,6 +132,8 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
 </head>
 <body>
 <?php echo $html_scripting_data ?>
+
+<div id="container">
 <div id="header">
  <a href="<?php echo $link['top'] ?>"><img id="logo" src="<?php echo IMAGE_DIR . $image['logo'] ?>" width="80" height="80" alt="[PukiWiki]" title="[PukiWiki]" /></a>
 
@@ -220,6 +222,7 @@ header('Content-Type: text/html; charset=' . CONTENT_CHARSET);
  <?php echo S_COPYRIGHT ?>.
  Powered by PHP <?php echo PHP_VERSION ?>. HTML convert time: <?php echo elapsedtime() ?> sec.
  </p>
+</div>
 </div>
 </body>
 </html>

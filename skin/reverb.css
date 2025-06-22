@@ -37,6 +37,11 @@
         --layout-spacing: 4px;
     }
 
+    #container {
+        margin-inline: auto;
+        max-width: 80rem;
+    }
+
     #contents {
         display: flex;
         flex-direction: row;
@@ -45,6 +50,7 @@
 
     #body {
         flex: auto;
+        padding-inline: 0.5rem;
     }
 
     #sidebar {
@@ -150,7 +156,11 @@ pre, dl, ol, p, blockquote {
 blockquote {
   margin-left:32px;
 }
-body,td {
+body {
+  color:black;
+  font-size:90%;
+}
+td {
   color:black;
   background-color:white;
   margin-left:2%;
