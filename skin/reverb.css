@@ -101,6 +101,22 @@
 }
 
 @layer typography {
+    :root {
+        /* Workaround: missing italic style with Meiryo on Chrome/Edge
+         *
+         * Meiryo is a widely used Japanese font, but it does not support italic style.
+         * To display italics, another Japanese font must be set.
+         *
+         * Chrome/Edge:
+         * - Noto Sans JP is the default font (since April 2025), but some users still use Meiryo.
+         * - Chrome and Edge cannot display italics with Meiryo.
+         * Firefox:
+         * - Meiryo is the default font, but Firefox can display italics with Meiryo.
+         * - Firefox has a built-in fix (see https://bugzil.la/1351332)
+         */
+        --font-family-italic: "Verdana", "Noto Sans JP", "Yu Gothic Medium", sans-serif;
+    }
+
     html {
         /* Verdana is set for PukiWiki skin compatibility */
         font-family: "Verdana", sans-serif;
@@ -111,6 +127,10 @@
         overflow-wrap: anywhere;
         word-break: normal;
         line-break: strict;
+    }
+
+    :is(i, cite, em, var, address, dfn):lang(ja) {
+        font-family: var(--font-family-italic);
     }
 }
 
@@ -237,10 +257,6 @@ ul {
   margin-top:.5em;
   margin-bottom:.5em;
   line-height:130%;
-}
-
-em {
-  font-style:italic;
 }
 
 thead td.style_td,
