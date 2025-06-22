@@ -34,7 +34,13 @@
 
 @layer layout {
     :root {
+        --background-color-outer: #f9fafb;
+        --background-color-content: #ffffff;
         --layout-spacing: 4px;
+    }
+
+    body {
+        background-color: var(--background-color-outer);
     }
 
     #container {
@@ -50,7 +56,8 @@
 
     #body {
         flex: auto;
-        padding-inline: 0.5rem;
+        padding: 0.5rem;
+        background-color: var(--background-color-content);
     }
 
     #sidebar {
@@ -74,8 +81,6 @@
         margin-inline: 2rem;
         padding-block: 1rem;
         align-items: center;
-
-        background-color: #f2f2f2;
     }
 
     #footer-nav {
@@ -85,8 +90,6 @@
         gap: 1rem;
 
         padding: 1rem;
-
-        background-color: #f2f2f2;
     }
 
     @media (max-width: 767px) {
