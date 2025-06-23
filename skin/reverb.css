@@ -171,7 +171,6 @@ td {
   font-size:90%;
 }
 textarea {
-  box-sizing:border-box;
   max-width:99.5%;
 }
 
@@ -810,7 +809,6 @@ tr.bugtrack_state_undef td {
 }
 ._p_bugtrack_form input[name="summary"],
 ._p_bugtrack_form textarea {
-  box-sizing:border-box;
   width:35em;
   max-width:99.5%;
 }
@@ -850,7 +848,6 @@ tr.bugtrack_state_undef td {
   }
   ._p_tracker_form td input[type=text],
   ._p_tracker_form td textarea {
-    box-sizing:border-box;
     width:99.5%;
   }
 
@@ -876,7 +873,6 @@ tr.bugtrack_state_undef td {
   }
   ._p_bugtrack_form input[name="summary"],
   ._p_bugtrack_form textarea {
-    box-sizing:border-box;
     width:99.5%;
   }
 }
