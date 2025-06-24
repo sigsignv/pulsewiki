@@ -34,7 +34,18 @@
 
 @layer layout {
     :root {
+        --background-color-outer: #f9fafb;
+        --background-color-content: #ffffff;
         --layout-spacing: 4px;
+    }
+
+    body {
+        background-color: var(--background-color-outer);
+    }
+
+    #container {
+        margin-inline: auto;
+        max-width: 80rem;
     }
 
     #contents {
@@ -45,6 +56,8 @@
 
     #body {
         flex: auto;
+        padding: 0.5rem;
+        background-color: var(--background-color-content);
     }
 
     #sidebar {
@@ -68,8 +81,6 @@
         margin-inline: 2rem;
         padding-block: 1rem;
         align-items: center;
-
-        background-color: #f2f2f2;
     }
 
     #footer-nav {
@@ -79,8 +90,6 @@
         gap: 1rem;
 
         padding: 1rem;
-
-        background-color: #f2f2f2;
     }
 
     @media (max-width: 767px) {
@@ -150,7 +159,11 @@ pre, dl, ol, p, blockquote {
 blockquote {
   margin-left:32px;
 }
-body,td {
+body {
+  color:black;
+  font-size:90%;
+}
+td {
   color:black;
   background-color:white;
   margin-left:2%;
@@ -158,7 +171,6 @@ body,td {
   font-size:90%;
 }
 textarea {
-  box-sizing:border-box;
   max-width:99.5%;
 }
 
@@ -797,7 +809,6 @@ tr.bugtrack_state_undef td {
 }
 ._p_bugtrack_form input[name="summary"],
 ._p_bugtrack_form textarea {
-  box-sizing:border-box;
   width:35em;
   max-width:99.5%;
 }
@@ -837,7 +848,6 @@ tr.bugtrack_state_undef td {
   }
   ._p_tracker_form td input[type=text],
   ._p_tracker_form td textarea {
-    box-sizing:border-box;
     width:99.5%;
   }
 
@@ -863,7 +873,6 @@ tr.bugtrack_state_undef td {
   }
   ._p_bugtrack_form input[name="summary"],
   ._p_bugtrack_form textarea {
-    box-sizing:border-box;
     width:99.5%;
   }
 }
