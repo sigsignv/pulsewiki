@@ -4,20 +4,20 @@ export function keepCommentUserName() {
   setYourName();
 }
 
-class UsernameStore {
+class CommentNameStore {
   constructor(public key: string) {}
 
-  getName(): string {
+  get name(): string {
     return localStorage.getItem(this.key) ?? "";
   }
 
-  setName(name: string): void {
-    localStorage.setItem(this.key, name);
+  set name(value: string) {
+    localStorage.setItem(this.key, value);
   }
 
-  static fromBasePath(basePath: string): UsernameStore {
+  static fromBasePath(basePath: string): CommentNameStore {
     const key = `path.${basePath}.pukiwiki_comment_plugin_name`;
-    return new UsernameStore(key);
+    return new CommentNameStore(key);
   }
 }
 
@@ -33,8 +33,8 @@ function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
 function setYourName() {
   function handleCommentPlugin(form) {
     const pathName = getSiteProps(document.documentElement).base_uri_pathname;
-    const store = UsernameStore.fromBasePath(pathName);
-    const namePrevious = store.getName();
+    const store = CommentNameStore.fromBasePath(pathName);
+    const namePrevious = store.name;
 
     const onFocusForm = () => {
       if (form.name && !form.name.value && namePrevious) {
@@ -56,7 +56,7 @@ function setYourName() {
     form.addEventListener(
       "submit",
       () => {
-        store.setName(form.name.value);
+        store.name = form.name.value;
       },
       false,
     );
@@ -76,40 +76,40 @@ function setYourName() {
 if (import.meta.vitest) {
   const { describe, it, expect, beforeEach } = import.meta.vitest;
 
-  describe("UsernameStore", () => {
+  describe("CommentNameStore", () => {
     beforeEach(() => {
       localStorage.clear();
     });
 
     it("should return empty string when name is not saved", () => {
-      const store = new UsernameStore("test_key");
-      expect(store.getName()).toBe("");
+      const store = new CommentNameStore("test_key");
+      expect(store.name).toBe("");
     });
 
     it("should return the saved name when name is saved", () => {
-      const store = new UsernameStore("test_key");
-      store.setName("Alice");
-      expect(store.getName()).toBe("Alice");
+      const store = new CommentNameStore("test_key");
+      store.name = "Alice";
+      expect(store.name).toBe("Alice");
     });
 
     it("should return the new name when saving again", () => {
-      const store = new UsernameStore("test_key");
-      store.setName("Alice");
-      store.setName("Bob");
-      expect(store.getName()).toBe("Bob");
+      const store = new CommentNameStore("test_key");
+      store.name = "Alice";
+      store.name = "Bob";
+      expect(store.name).toBe("Bob");
     });
 
     it("should return the correct name for each key", () => {
-      const store1 = new UsernameStore("test_key1");
-      const store2 = new UsernameStore("test_key2");
-      store1.setName("Alice");
-      store2.setName("Bob");
-      expect(store1.getName()).toBe("Alice");
-      expect(store2.getName()).toBe("Bob");
+      const store1 = new CommentNameStore("test_key1");
+      const store2 = new CommentNameStore("test_key2");
+      store1.name = "Alice";
+      store2.name = "Bob";
+      expect(store1.name).toBe("Alice");
+      expect(store2.name).toBe("Bob");
     });
 
     it("should create correct key with fromBasePath", () => {
-      const store = UsernameStore.fromBasePath("/wiki/");
+      const store = CommentNameStore.fromBasePath("/wiki/");
       expect(store.key).toBe("path./wiki/.pukiwiki_comment_plugin_name");
     });
   });
