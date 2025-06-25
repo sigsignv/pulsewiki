@@ -21,6 +21,26 @@ class CommentNameStore {
   }
 }
 
+class CommentNameHandler {
+  constructor(public form: HTMLFormElement) {}
+
+  #nameElement(): HTMLInputElement {
+    const name = this.form.elements.namedItem("name");
+    if (name && name instanceof HTMLInputElement) {
+      return name;
+    }
+    throw new Error("input[name='name'] not found");
+  }
+
+  getName(): string {
+    return this.#nameElement().value;
+  }
+
+  setName(value: string) {
+    this.#nameElement().value = value;
+  }
+}
+
 function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
   const selector = ["comment", "pcomment", "article", "bugtrack"]
     .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
@@ -32,13 +52,14 @@ function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
 // Name for comment
 function setYourName() {
   function handleCommentPlugin(form) {
+    const handler = new CommentNameHandler(form);
     const pathName = getSiteProps(document.documentElement).base_uri_pathname;
     const store = CommentNameStore.fromBasePath(pathName);
     const namePrevious = store.name;
 
     const onFocusForm = () => {
-      if (form.name && !form.name.value && namePrevious) {
-        form.name.value = namePrevious;
+      if (handler.getName() === "" && namePrevious) {
+        handler.setName(namePrevious);
       }
     };
     const addOnForcusForm = (eNullable) => {
@@ -56,7 +77,7 @@ function setYourName() {
     form.addEventListener(
       "submit",
       () => {
-        store.name = form.name.value;
+        store.name = handler.getName();
       },
       false,
     );
@@ -111,6 +132,37 @@ if (import.meta.vitest) {
     it("should create correct key with fromBasePath", () => {
       const store = CommentNameStore.fromBasePath("/wiki/");
       expect(store.key).toBe("path./wiki/.pukiwiki_comment_plugin_name");
+    });
+  });
+
+  describe("CommentNameHandler", () => {
+    const createForm = () => {
+      const form = document.createElement("form");
+      const nameElement = document.createElement("input");
+      nameElement.type = "text";
+      nameElement.name = "name";
+      form.appendChild(nameElement);
+      return { form, nameElement };
+    };
+
+    it("should get the name value from the form", () => {
+      const { form, nameElement } = createForm();
+      nameElement.value = "Alice";
+      const handler = new CommentNameHandler(form);
+      expect(handler.getName()).toBe("Alice");
+    });
+
+    it("should set the name value to the form", () => {
+      const { form, nameElement } = createForm();
+      const handler = new CommentNameHandler(form);
+      handler.setName("Bob");
+      expect(nameElement.value).toBe("Bob");
+    });
+
+    it("should throw if input[name='name'] is not found", () => {
+      const formWithoutName = document.createElement("form");
+      const handler = new CommentNameHandler(formWithoutName);
+      expect(() => handler.getName()).toThrow("input[name='name'] not found");
     });
   });
 

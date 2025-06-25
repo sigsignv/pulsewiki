@@ -33,6 +33,25 @@
             return new CommentNameStore(key);
         }
     }
+    class CommentNameHandler {
+        form;
+        constructor(form) {
+            this.form = form;
+        }
+        #nameElement() {
+            const name = this.form.elements.namedItem("name");
+            if (name && name instanceof HTMLInputElement) {
+                return name;
+            }
+            throw new Error("input[name='name'] not found");
+        }
+        getName() {
+            return this.#nameElement().value;
+        }
+        setName(value) {
+            this.#nameElement().value = value;
+        }
+    }
     function getCommentPluginElements(root) {
         const selector = ["comment", "pcomment", "article", "bugtrack"]
             .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
@@ -42,12 +61,13 @@
     // Name for comment
     function setYourName() {
         function handleCommentPlugin(form) {
+            const handler = new CommentNameHandler(form);
             const pathName = getSiteProps(document.documentElement).base_uri_pathname;
             const store = CommentNameStore.fromBasePath(pathName);
             const namePrevious = store.name;
             const onFocusForm = () => {
-                if (form.name && !form.name.value && namePrevious) {
-                    form.name.value = namePrevious;
+                if (handler.getName() === "" && namePrevious) {
+                    handler.setName(namePrevious);
                 }
             };
             const addOnForcusForm = (eNullable) => {
@@ -64,7 +84,7 @@
                 });
             }
             form.addEventListener("submit", () => {
-                store.name = form.name.value;
+                store.name = handler.getName();
             }, false);
         }
         function setNameForComment() {
