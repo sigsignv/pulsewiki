@@ -1,10 +1,9 @@
 import { getSiteProps } from "./utils";
 
 export function keepCommentUserName() {
-  const pathName = getSiteProps(document.documentElement).base_uri_pathname;
+  const pathName = getSiteProps().base_uri_pathname;
   const store = CommentNameStore.fromBasePath(pathName);
-  const forms = getCommentPluginForms(document.documentElement);
-  for (const form of forms) {
+  for (const form of getCommentPluginForms()) {
     restoreCommentName(form, store);
     saveCommentName(form, store);
   }
@@ -51,7 +50,7 @@ class CommentForm {
   }
 }
 
-function getCommentPluginForms(root: HTMLElement): HTMLFormElement[] {
+function getCommentPluginForms(root: HTMLElement = document.documentElement): HTMLFormElement[] {
   const selector = ["comment", "pcomment", "article", "bugtrack"]
     .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
     .join(",");

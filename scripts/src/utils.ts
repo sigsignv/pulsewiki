@@ -6,7 +6,7 @@ export type SiteProps = {
   base_uri_absolute: string;
 };
 
-export function getSiteProps(root: HTMLElement): SiteProps {
+export function getSiteProps(root: HTMLElement = document.documentElement): SiteProps {
   const element = root.querySelector<HTMLInputElement>("#pukiwiki-site-properties .site-props");
   if (!element || !element.value) {
     throw new Error(".site-props does not exist");

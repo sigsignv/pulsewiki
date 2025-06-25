@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function getSiteProps(root) {
+    function getSiteProps(root = document.documentElement) {
         const element = root.querySelector("#pukiwiki-site-properties .site-props");
         if (!element || !element.value) {
             throw new Error(".site-props does not exist");
@@ -15,10 +15,9 @@
     }
 
     function keepCommentUserName() {
-        const pathName = getSiteProps(document.documentElement).base_uri_pathname;
+        const pathName = getSiteProps().base_uri_pathname;
         const store = CommentNameStore.fromBasePath(pathName);
-        const forms = getCommentPluginForms(document.documentElement);
-        for (const form of forms) {
+        for (const form of getCommentPluginForms()) {
             restoreCommentName(form, store);
             saveCommentName(form, store);
         }
@@ -61,7 +60,7 @@
             this.#nameElement().value = value;
         }
     }
-    function getCommentPluginForms(root) {
+    function getCommentPluginForms(root = document.documentElement) {
         const selector = ["comment", "pcomment", "article", "bugtrack"]
             .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
             .join(",");
