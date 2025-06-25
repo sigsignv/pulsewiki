@@ -19,6 +19,15 @@ export function getSiteProps(root: HTMLElement = document.documentElement): Site
   }
 }
 
+export function getPageName(root: HTMLElement = document.documentElement): string {
+  const element = root.querySelector<HTMLInputElement>("#pukiwiki-site-properties .page-name");
+  if (!element) {
+    throw new Error(".page-name does not exist");
+  }
+
+  return element.value;
+}
+
 export function getPluginName(root: HTMLElement = document.documentElement): string {
   const element = root.querySelector<HTMLInputElement>("#pukiwiki-site-properties .plugin-name");
   if (!element) {
@@ -90,6 +99,24 @@ if (import.meta.vitest) {
         </div>
       `;
       expect(getPluginName(root)).toBe(pluginName);
+    });
+  });
+
+  describe("getPageName", () => {
+    it("throws an error when the .page-name element does not exist", () => {
+      const root = document.createElement("div");
+      expect(() => getPageName(root)).toThrowError(".page-name does not exist");
+    });
+
+    it("returns the page name when the .page-name element exists", () => {
+      const pageName = "FrontPage";
+      const root = document.createElement("div");
+      root.innerHTML = `
+        <div id="pukiwiki-site-properties">
+          <input type="hidden" class="page-name" value="${pageName}" />
+        </div>
+      `;
+      expect(getPageName(root)).toBe(pageName);
     });
   });
 }

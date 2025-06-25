@@ -13,6 +13,13 @@
             throw new Error(".site-props contains invalid JSON");
         }
     }
+    function getPageName(root = document.documentElement) {
+        const element = root.querySelector("#pukiwiki-site-properties .page-name");
+        if (!element) {
+            throw new Error(".page-name does not exist");
+        }
+        return element.value;
+    }
     function getPluginName(root = document.documentElement) {
         const element = root.querySelector("#pukiwiki-site-properties .plugin-name");
         if (!element) {
@@ -95,17 +102,11 @@
         if (pluginName !== "read") {
             return;
         }
-        const propRoot = document.querySelector("#pukiwiki-site-properties");
-        if (!propRoot)
-            return;
-        const pageNameE = propRoot.querySelector(".page-name");
-        if (!pageNameE)
-            return;
-        const pageName = pageNameE.value;
         if (!document.querySelector("._plugin_counter_item"))
             return;
         // Found async counter items
         const sitePathname = getSiteProps().base_uri_pathname;
+        const pageName = getPageName();
         const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
         fetch(url, { credentials: "same-origin" })
             .then((response) => {

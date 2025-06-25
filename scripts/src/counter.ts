@@ -1,4 +1,4 @@
-import { getPluginName, getSiteProps } from "./utils";
+import { getPageName, getPluginName, getSiteProps } from "./utils";
 
 export function updateCounterItems() {
   const pluginName = getPluginName();
@@ -6,14 +6,10 @@ export function updateCounterItems() {
     return;
   }
 
-  const propRoot = document.querySelector("#pukiwiki-site-properties");
-  if (!propRoot) return;
-  const pageNameE = propRoot.querySelector(".page-name");
-  if (!pageNameE) return;
-  const pageName = pageNameE.value;
   if (!document.querySelector("._plugin_counter_item")) return;
   // Found async counter items
   const sitePathname = getSiteProps().base_uri_pathname;
+  const pageName = getPageName();
   const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
   fetch(url, { credentials: "same-origin" })
     .then((response) => {
