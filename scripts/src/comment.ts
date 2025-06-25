@@ -3,13 +3,10 @@ import { getSiteProps } from "./utils";
 export function keepCommentUserName() {
   const pathName = getSiteProps(document.documentElement).base_uri_pathname;
   const store = CommentNameStore.fromBasePath(pathName);
-  const elements = getCommentPluginElements(document.documentElement);
-  for (const elm of elements) {
-    const form = elm.form;
-    if (form) {
-      restoreCommentName(form, store);
-      saveCommentName(form, store);
-    }
+  const forms = getCommentPluginForms(document.documentElement);
+  for (const form of forms) {
+    restoreCommentName(form, store);
+    saveCommentName(form, store);
   }
 }
 
@@ -54,12 +51,14 @@ class CommentForm {
   }
 }
 
-function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
+function getCommentPluginForms(root: HTMLElement): HTMLFormElement[] {
   const selector = ["comment", "pcomment", "article", "bugtrack"]
     .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
     .join(",");
 
-  return Array.from(root.querySelectorAll<HTMLInputElement>(selector));
+  return Array.from(root.querySelectorAll<HTMLInputElement>(selector))
+    .map((input) => input.form)
+    .filter((form) => form !== null);
 }
 
 function restoreCommentName(formElement: HTMLFormElement, store: CommentNameStore) {
@@ -163,22 +162,30 @@ if (import.meta.vitest) {
     });
   });
 
-  describe("getCommentPluginElements", () => {
+  describe("getCommentPluginForms", () => {
     it("should return an empty array when no elements match", () => {
       const root = document.createElement("div");
-      const result = getCommentPluginElements(root);
+      const result = getCommentPluginForms(root);
       expect(result).toEqual([]);
     });
 
     it("should return matching input elements", () => {
       const root = document.createElement("div");
       root.innerHTML = `
-        <input type="hidden" name="plugin" value="comment">
-        <input type="hidden" name="plugin" value="pcomment">
-        <input type="hidden" name="plugin" value="article">
-        <input type="hidden" name="plugin" value="bugtrack">
+        <form>
+          <input type="hidden" name="plugin" value="comment" />
+        </form>
+        <form>
+          <input type="hidden" name="plugin" value="pcomment" />
+        </form>
+        <form>
+          <input type="hidden" name="plugin" value="article" />
+        </form>
+        <form>
+          <input type="hidden" name="plugin" value="bugtrack" />
+        </form>
       `;
-      const result = getCommentPluginElements(root);
+      const result = getCommentPluginForms(root);
       expect(result.length).toBe(4);
     });
   });

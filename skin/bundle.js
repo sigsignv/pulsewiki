@@ -17,13 +17,10 @@
     function keepCommentUserName() {
         const pathName = getSiteProps(document.documentElement).base_uri_pathname;
         const store = CommentNameStore.fromBasePath(pathName);
-        const elements = getCommentPluginElements(document.documentElement);
-        for (const elm of elements) {
-            const form = elm.form;
-            if (form) {
-                restoreCommentName(form, store);
-                saveCommentName(form, store);
-            }
+        const forms = getCommentPluginForms(document.documentElement);
+        for (const form of forms) {
+            restoreCommentName(form, store);
+            saveCommentName(form, store);
         }
     }
     class CommentNameStore {
@@ -64,11 +61,13 @@
             this.#nameElement().value = value;
         }
     }
-    function getCommentPluginElements(root) {
+    function getCommentPluginForms(root) {
         const selector = ["comment", "pcomment", "article", "bugtrack"]
             .map((value) => `input[type="hidden"][name="plugin"][value="${value}"]`)
             .join(",");
-        return Array.from(root.querySelectorAll(selector));
+        return Array.from(root.querySelectorAll(selector))
+            .map((input) => input.form)
+            .filter((form) => form !== null);
     }
     function restoreCommentName(formElement, store) {
         const restore = () => {
