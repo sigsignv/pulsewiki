@@ -52,29 +52,32 @@ function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
   return Array.from(root.querySelectorAll<HTMLInputElement>(selector));
 }
 
+function restoreCommentName(formElement: HTMLFormElement, store: CommentNameStore) {
+  const restore = () => {
+    if (store.name !== "") {
+      const form = new CommentForm(formElement);
+      form.name = store.name;
+    }
+  };
+  formElement.addEventListener("focusin", restore, { once: true });
+}
+
+function saveCommentName(formElement: HTMLFormElement, store: CommentNameStore) {
+  const save = () => {
+    const form = new CommentForm(formElement);
+    store.name = form.name;
+  };
+  formElement.addEventListener("submit", save, { once: true });
+}
+
 // Name for comment
 function setYourName() {
   function handleCommentPlugin(form: HTMLFormElement) {
-    const commentForm = new CommentForm(form);
     const pathName = getSiteProps(document.documentElement).base_uri_pathname;
     const store = CommentNameStore.fromBasePath(pathName);
-    const namePrevious = store.name;
 
-    const onFocusForm = () => {
-      if (commentForm.name === "" && namePrevious) {
-        commentForm.name = namePrevious;
-      }
-    };
-    if (namePrevious) {
-      form.addEventListener("focusin", onFocusForm, false);
-    }
-    form.addEventListener(
-      "submit",
-      () => {
-        store.name = commentForm.name;
-      },
-      false,
-    );
+    restoreCommentName(form, store);
+    saveCommentName(form, store);
   }
   function setNameForComment() {
     const elements = getCommentPluginElements(document.documentElement);
