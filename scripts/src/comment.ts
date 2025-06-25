@@ -37,6 +37,9 @@ class CommentNameHandler {
   }
 
   setName(value: string) {
+    if (this.getName() !== "") {
+      return;
+    }
     this.#nameElement().value = value;
   }
 }
@@ -154,6 +157,14 @@ if (import.meta.vitest) {
       const formWithoutName = document.createElement("form");
       const handler = new CommentNameHandler(formWithoutName);
       expect(() => handler.getName()).toThrow("input[name='name'] not found");
+    });
+
+    it("should not overwrite name if already set", () => {
+      const { form, nameElement } = createForm();
+      nameElement.value = "Alice";
+      const handler = new CommentNameHandler(form);
+      handler.setName("Bob");
+      expect(nameElement.value).toBe("Alice");
     });
   });
 

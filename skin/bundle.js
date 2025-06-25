@@ -49,6 +49,9 @@
             return this.#nameElement().value;
         }
         setName(value) {
+            if (this.getName() !== "") {
+                return;
+            }
             this.#nameElement().value = value;
         }
     }
