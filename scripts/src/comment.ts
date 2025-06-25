@@ -24,6 +24,10 @@ class CommentNameStore {
     localStorage.setItem(this.key, value);
   }
 
+  clear() {
+    localStorage.removeItem(this.key);
+  }
+
   static fromBasePath(basePath: string): CommentNameStore {
     const key = `path.${basePath}.pukiwiki_comment_plugin_name`;
     return new CommentNameStore(key);
@@ -74,7 +78,11 @@ function restoreCommentName(formElement: HTMLFormElement, store: CommentNameStor
 function saveCommentName(formElement: HTMLFormElement, store: CommentNameStore) {
   const save = () => {
     const form = new CommentForm(formElement);
-    store.name = form.name;
+    if (form.name === "") {
+      store.clear();
+    } else {
+      store.name = form.name;
+    }
   };
   formElement.addEventListener("submit", save, { once: true });
 }
@@ -103,6 +111,13 @@ if (import.meta.vitest) {
       store.name = "Alice";
       store.name = "Bob";
       expect(store.name).toBe("Bob");
+    });
+
+    it("should clear the saved name when clear is called", () => {
+      const store = new CommentNameStore("test_key");
+      store.name = "Alice";
+      store.clear();
+      expect(store.name).toBe("");
     });
 
     it("should return the correct name for each key", () => {

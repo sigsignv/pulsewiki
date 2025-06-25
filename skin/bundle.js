@@ -37,6 +37,9 @@
         set name(value) {
             localStorage.setItem(this.key, value);
         }
+        clear() {
+            localStorage.removeItem(this.key);
+        }
         static fromBasePath(basePath) {
             const key = `path.${basePath}.pukiwiki_comment_plugin_name`;
             return new CommentNameStore(key);
@@ -82,7 +85,12 @@
     function saveCommentName(formElement, store) {
         const save = () => {
             const form = new CommentForm(formElement);
-            store.name = form.name;
+            if (form.name === "") {
+                store.clear();
+            }
+            else {
+                store.name = form.name;
+            }
         };
         formElement.addEventListener("submit", save, { once: true });
     }
