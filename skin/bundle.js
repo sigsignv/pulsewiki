@@ -84,8 +84,6 @@
     }
 
     function updateCounterItems() {
-        if (!isEnabledFetchFunctions())
-            return;
         const propRoot = document.querySelector("#pukiwiki-site-properties");
         if (!propRoot)
             return;
@@ -140,12 +138,6 @@
                     item.textContent = obj.yesterday;
                 }
             }
-        }
-        function isEnabledFetchFunctions() {
-            if (window.fetch && document.querySelector && window.JSON) {
-                return true;
-            }
-            return false;
         }
     }
 

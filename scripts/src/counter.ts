@@ -1,5 +1,4 @@
 export function updateCounterItems() {
-  if (!isEnabledFetchFunctions()) return;
   const propRoot = document.querySelector("#pukiwiki-site-properties");
   if (!propRoot) return;
   const propsE = propRoot.querySelector(".site-props");
@@ -49,11 +48,5 @@ export function updateCounterItems() {
         item.textContent = obj.yesterday;
       }
     }
-  }
-  function isEnabledFetchFunctions() {
-    if (window.fetch && document.querySelector && window.JSON) {
-      return true;
-    }
-    return false;
   }
 }
