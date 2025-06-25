@@ -50,9 +50,6 @@ class CommentForm {
   }
 
   set name(value: string) {
-    if (this.name !== "") {
-      return;
-    }
     this.#nameElement().value = value;
   }
 }
@@ -67,8 +64,8 @@ function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
 
 function restoreCommentName(formElement: HTMLFormElement, store: CommentNameStore) {
   const restore = () => {
-    if (store.name !== "") {
-      const form = new CommentForm(formElement);
+    const form = new CommentForm(formElement);
+    if (form.name === "") {
       form.name = store.name;
     }
   };
@@ -163,14 +160,6 @@ if (import.meta.vitest) {
       const formWithoutName = document.createElement("form");
       const form = new CommentForm(formWithoutName);
       expect(() => form.name).toThrow("input[name='name'] not found");
-    });
-
-    it("should not overwrite name if already set", () => {
-      const { formElement, nameElement } = createForm();
-      nameElement.value = "Alice";
-      const form = new CommentForm(formElement);
-      form.name = "Bob";
-      expect(nameElement.value).toBe("Alice");
     });
   });
 

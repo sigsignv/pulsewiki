@@ -61,9 +61,6 @@
             return this.#nameElement().value;
         }
         set name(value) {
-            if (this.name !== "") {
-                return;
-            }
             this.#nameElement().value = value;
         }
     }
@@ -75,8 +72,8 @@
     }
     function restoreCommentName(formElement, store) {
         const restore = () => {
-            if (store.name !== "") {
-                const form = new CommentForm(formElement);
+            const form = new CommentForm(formElement);
+            if (form.name === "") {
                 form.name = store.name;
             }
         };
