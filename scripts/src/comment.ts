@@ -21,7 +21,7 @@ class CommentNameStore {
   }
 }
 
-class CommentNameHandler {
+class CommentForm {
   constructor(public form: HTMLFormElement) {}
 
   #nameElement(): HTMLInputElement {
@@ -32,12 +32,12 @@ class CommentNameHandler {
     throw new Error("input[name='name'] not found");
   }
 
-  getName(): string {
+  get name(): string {
     return this.#nameElement().value;
   }
 
-  setName(value: string) {
-    if (this.getName() !== "") {
+  set name(value: string) {
+    if (this.name !== "") {
       return;
     }
     this.#nameElement().value = value;
@@ -54,15 +54,15 @@ function getCommentPluginElements(root: HTMLElement): HTMLInputElement[] {
 
 // Name for comment
 function setYourName() {
-  function handleCommentPlugin(form) {
-    const handler = new CommentNameHandler(form);
+  function handleCommentPlugin(form: HTMLFormElement) {
+    const commentForm = new CommentForm(form);
     const pathName = getSiteProps(document.documentElement).base_uri_pathname;
     const store = CommentNameStore.fromBasePath(pathName);
     const namePrevious = store.name;
 
     const onFocusForm = () => {
-      if (handler.getName() === "" && namePrevious) {
-        handler.setName(namePrevious);
+      if (commentForm.name === "" && namePrevious) {
+        commentForm.name = namePrevious;
       }
     };
     if (namePrevious) {
@@ -71,7 +71,7 @@ function setYourName() {
     form.addEventListener(
       "submit",
       () => {
-        store.name = handler.getName();
+        store.name = commentForm.name;
       },
       false,
     );
@@ -129,41 +129,41 @@ if (import.meta.vitest) {
     });
   });
 
-  describe("CommentNameHandler", () => {
+  describe("CommentForm", () => {
     const createForm = () => {
-      const form = document.createElement("form");
+      const formElement = document.createElement("form");
       const nameElement = document.createElement("input");
       nameElement.type = "text";
       nameElement.name = "name";
-      form.appendChild(nameElement);
-      return { form, nameElement };
+      formElement.appendChild(nameElement);
+      return { formElement, nameElement };
     };
 
     it("should get the name value from the form", () => {
-      const { form, nameElement } = createForm();
+      const { formElement, nameElement } = createForm();
       nameElement.value = "Alice";
-      const handler = new CommentNameHandler(form);
-      expect(handler.getName()).toBe("Alice");
+      const form = new CommentForm(formElement);
+      expect(form.name).toBe("Alice");
     });
 
     it("should set the name value to the form", () => {
-      const { form, nameElement } = createForm();
-      const handler = new CommentNameHandler(form);
-      handler.setName("Bob");
+      const { formElement, nameElement } = createForm();
+      const form = new CommentForm(formElement);
+      form.name = "Bob";
       expect(nameElement.value).toBe("Bob");
     });
 
     it("should throw if input[name='name'] is not found", () => {
       const formWithoutName = document.createElement("form");
-      const handler = new CommentNameHandler(formWithoutName);
-      expect(() => handler.getName()).toThrow("input[name='name'] not found");
+      const form = new CommentForm(formWithoutName);
+      expect(() => form.name).toThrow("input[name='name'] not found");
     });
 
     it("should not overwrite name if already set", () => {
-      const { form, nameElement } = createForm();
+      const { formElement, nameElement } = createForm();
       nameElement.value = "Alice";
-      const handler = new CommentNameHandler(form);
-      handler.setName("Bob");
+      const form = new CommentForm(formElement);
+      form.name = "Bob";
       expect(nameElement.value).toBe("Alice");
     });
   });

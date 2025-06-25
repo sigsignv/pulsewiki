@@ -33,7 +33,7 @@
             return new CommentNameStore(key);
         }
     }
-    class CommentNameHandler {
+    class CommentForm {
         form;
         constructor(form) {
             this.form = form;
@@ -45,11 +45,11 @@
             }
             throw new Error("input[name='name'] not found");
         }
-        getName() {
+        get name() {
             return this.#nameElement().value;
         }
-        setName(value) {
-            if (this.getName() !== "") {
+        set name(value) {
+            if (this.name !== "") {
                 return;
             }
             this.#nameElement().value = value;
@@ -64,20 +64,20 @@
     // Name for comment
     function setYourName() {
         function handleCommentPlugin(form) {
-            const handler = new CommentNameHandler(form);
+            const commentForm = new CommentForm(form);
             const pathName = getSiteProps(document.documentElement).base_uri_pathname;
             const store = CommentNameStore.fromBasePath(pathName);
             const namePrevious = store.name;
             const onFocusForm = () => {
-                if (handler.getName() === "" && namePrevious) {
-                    handler.setName(namePrevious);
+                if (commentForm.name === "" && namePrevious) {
+                    commentForm.name = namePrevious;
                 }
             };
             if (namePrevious) {
                 form.addEventListener("focusin", onFocusForm, false);
             }
             form.addEventListener("submit", () => {
-                store.name = handler.getName();
+                store.name = commentForm.name;
             }, false);
         }
         function setNameForComment() {
