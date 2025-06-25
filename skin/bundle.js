@@ -87,13 +87,6 @@
         const propRoot = document.querySelector("#pukiwiki-site-properties");
         if (!propRoot)
             return;
-        const propsE = propRoot.querySelector(".site-props");
-        if (!propsE || !propsE.value)
-            return;
-        const siteProps = JSON.parse(propsE.value);
-        const sitePathname = siteProps && siteProps.base_uri_pathname;
-        if (!sitePathname)
-            return;
         const pluginNameE = propRoot.querySelector(".plugin-name");
         if (!pluginNameE)
             return;
@@ -107,6 +100,7 @@
         if (!document.querySelector("._plugin_counter_item"))
             return;
         // Found async counter items
+        const sitePathname = getSiteProps().base_uri_pathname;
         const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
         fetch(url, { credentials: "same-origin" })
             .then((response) => {
