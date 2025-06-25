@@ -62,17 +62,8 @@ function setYourName() {
         handler.setName(namePrevious);
       }
     };
-    const addOnForcusForm = (eNullable) => {
-      if (!eNullable) return;
-      if (eNullable.addEventListener) {
-        eNullable.addEventListener("focus", onFocusForm);
-      }
-    };
     if (namePrevious) {
-      const textList = form.querySelectorAll("input[type=text],textarea");
-      textList.forEach((v) => {
-        addOnForcusForm(v);
-      });
+      form.addEventListener("focusin", onFocusForm, false);
     }
     form.addEventListener(
       "submit",
