@@ -19,6 +19,15 @@ export function getSiteProps(root: HTMLElement = document.documentElement): Site
   }
 }
 
+export function getPluginName(root: HTMLElement = document.documentElement): string {
+  const element = root.querySelector<HTMLInputElement>("#pukiwiki-site-properties .plugin-name");
+  if (!element) {
+    throw new Error(".plugin-name does not exist");
+  }
+
+  return element.value;
+}
+
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest;
 
@@ -63,6 +72,24 @@ if (import.meta.vitest) {
         </div>
       `;
       expect(getSiteProps(root)).toEqual(props);
+    });
+  });
+
+  describe("getPluginName", () => {
+    it("throws an error when the .plugin-name element does not exist", () => {
+      const root = document.createElement("div");
+      expect(() => getPluginName(root)).toThrowError(".plugin-name does not exist");
+    });
+
+    it("returns the plugin name when the .plugin-name element exists", () => {
+      const pluginName = "read";
+      const root = document.createElement("div");
+      root.innerHTML = `
+        <div id="pukiwiki-site-properties">
+          <input type="hidden" class="plugin-name" value="${pluginName}" />
+        </div>
+      `;
+      expect(getPluginName(root)).toBe(pluginName);
     });
   });
 }

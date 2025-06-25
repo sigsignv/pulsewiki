@@ -1,13 +1,13 @@
-import { getSiteProps } from "./utils";
+import { getPluginName, getSiteProps } from "./utils";
 
 export function updateCounterItems() {
-  const propRoot = document.querySelector("#pukiwiki-site-properties");
-  if (!propRoot) return;
-  const pluginNameE = propRoot.querySelector(".plugin-name");
-  if (!pluginNameE) return;
-  if (pluginNameE.value !== "read") {
+  const pluginName = getPluginName();
+  if (pluginName !== "read") {
     return;
   }
+
+  const propRoot = document.querySelector("#pukiwiki-site-properties");
+  if (!propRoot) return;
   const pageNameE = propRoot.querySelector(".page-name");
   if (!pageNameE) return;
   const pageName = pageNameE.value;

@@ -13,6 +13,13 @@
             throw new Error(".site-props contains invalid JSON");
         }
     }
+    function getPluginName(root = document.documentElement) {
+        const element = root.querySelector("#pukiwiki-site-properties .plugin-name");
+        if (!element) {
+            throw new Error(".plugin-name does not exist");
+        }
+        return element.value;
+    }
 
     function autofillCommentName() {
         const pathName = getSiteProps().base_uri_pathname;
@@ -84,15 +91,13 @@
     }
 
     function updateCounterItems() {
+        const pluginName = getPluginName();
+        if (pluginName !== "read") {
+            return;
+        }
         const propRoot = document.querySelector("#pukiwiki-site-properties");
         if (!propRoot)
             return;
-        const pluginNameE = propRoot.querySelector(".plugin-name");
-        if (!pluginNameE)
-            return;
-        if (pluginNameE.value !== "read") {
-            return;
-        }
         const pageNameE = propRoot.querySelector(".page-name");
         if (!pageNameE)
             return;
