@@ -86,30 +86,30 @@
     function updateCounterItems() {
         if (!isEnabledFetchFunctions())
             return;
-        var propRoot = document.querySelector("#pukiwiki-site-properties");
+        const propRoot = document.querySelector("#pukiwiki-site-properties");
         if (!propRoot)
             return;
-        var propsE = propRoot.querySelector(".site-props");
+        const propsE = propRoot.querySelector(".site-props");
         if (!propsE || !propsE.value)
             return;
-        var siteProps = JSON.parse(propsE.value);
-        var sitePathname = siteProps && siteProps.base_uri_pathname;
+        const siteProps = JSON.parse(propsE.value);
+        const sitePathname = siteProps && siteProps.base_uri_pathname;
         if (!sitePathname)
             return;
-        var pluginNameE = propRoot.querySelector(".plugin-name");
+        const pluginNameE = propRoot.querySelector(".plugin-name");
         if (!pluginNameE)
             return;
         if (pluginNameE.value !== "read") {
             return;
         }
-        var pageNameE = propRoot.querySelector(".page-name");
+        const pageNameE = propRoot.querySelector(".page-name");
         if (!pageNameE)
             return;
-        var pageName = pageNameE.value;
+        const pageName = pageNameE.value;
         if (!document.querySelector("._plugin_counter_item"))
             return;
         // Found async counter items
-        var url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
+        const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
         fetch(url, { credentials: "same-origin" })
             .then((response) => {
             if (response.ok) {
@@ -127,9 +127,9 @@
             }
         });
         function showCounterItems(obj) {
-            var items = document.querySelectorAll("._plugin_counter_item");
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
+            const items = document.querySelectorAll("._plugin_counter_item");
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
                 if (item.classList.contains("_plugin_counter_item_total")) {
                     item.textContent = obj.total;
                 }
