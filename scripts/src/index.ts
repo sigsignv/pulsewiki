@@ -1,5 +1,5 @@
-import { keepCommentUserName } from "./comment";
+import { autofillCommentName } from "./comment";
 
 document.addEventListener("DOMContentLoaded", () => {
-  keepCommentUserName();
+  autofillCommentName();
 });

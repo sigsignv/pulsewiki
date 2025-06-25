@@ -14,12 +14,26 @@
         }
     }
 
-    function keepCommentUserName() {
+    function autofillCommentName() {
         const pathName = getSiteProps().base_uri_pathname;
         const store = CommentNameStore.fromBasePath(pathName);
-        for (const form of getCommentPluginForms()) {
-            restoreCommentName(form, store);
-            saveCommentName(form, store);
+        for (const formElement of getCommentPluginForms()) {
+            const form = new CommentForm(formElement);
+            const restoreOnFocus = () => {
+                if (form.name === "") {
+                    form.name = store.name;
+                }
+            };
+            formElement.addEventListener("focusin", restoreOnFocus, { once: true });
+            const saveOnSubmit = () => {
+                if (form.name === "") {
+                    store.clear();
+                }
+                else {
+                    store.name = form.name;
+                }
+            };
+            formElement.addEventListener("submit", saveOnSubmit, { once: true });
         }
     }
     class CommentNameStore {
@@ -68,30 +82,9 @@
             .map((input) => input.form)
             .filter((form) => form !== null);
     }
-    function restoreCommentName(formElement, store) {
-        const restore = () => {
-            const form = new CommentForm(formElement);
-            if (form.name === "") {
-                form.name = store.name;
-            }
-        };
-        formElement.addEventListener("focusin", restore, { once: true });
-    }
-    function saveCommentName(formElement, store) {
-        const save = () => {
-            const form = new CommentForm(formElement);
-            if (form.name === "") {
-                store.clear();
-            }
-            else {
-                store.name = form.name;
-            }
-        };
-        formElement.addEventListener("submit", save, { once: true });
-    }
 
     document.addEventListener("DOMContentLoaded", () => {
-        keepCommentUserName();
+        autofillCommentName();
     });
 
 })();
