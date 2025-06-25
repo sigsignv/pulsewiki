@@ -15,7 +15,16 @@
     }
 
     function keepCommentUserName() {
-        setYourName();
+        const pathName = getSiteProps(document.documentElement).base_uri_pathname;
+        const store = CommentNameStore.fromBasePath(pathName);
+        const elements = getCommentPluginElements(document.documentElement);
+        for (const elm of elements) {
+            const form = elm.form;
+            if (form) {
+                restoreCommentName(form, store);
+                saveCommentName(form, store);
+            }
+        }
     }
     class CommentNameStore {
         key;
@@ -76,25 +85,6 @@
             store.name = form.name;
         };
         formElement.addEventListener("submit", save, { once: true });
-    }
-    // Name for comment
-    function setYourName() {
-        function handleCommentPlugin(form) {
-            const pathName = getSiteProps(document.documentElement).base_uri_pathname;
-            const store = CommentNameStore.fromBasePath(pathName);
-            restoreCommentName(form, store);
-            saveCommentName(form, store);
-        }
-        function setNameForComment() {
-            const elements = getCommentPluginElements(document.documentElement);
-            for (const elm of elements) {
-                const form = elm.form;
-                if (form) {
-                    handleCommentPlugin(form);
-                }
-            }
-        }
-        setNameForComment();
     }
 
     document.addEventListener("DOMContentLoaded", () => {
