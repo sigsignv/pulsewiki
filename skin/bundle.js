@@ -102,8 +102,10 @@
         if (pluginName !== "read") {
             return;
         }
-        if (!document.querySelector("._plugin_counter_item"))
+        const items = getCounterItems();
+        if (items.length === 0) {
             return;
+        }
         // Found async counter items
         const sitePathname = getSiteProps().base_uri_pathname;
         const pageName = getPageName();
@@ -125,7 +127,7 @@
             }
         });
         function showCounterItems(obj) {
-            const items = document.querySelectorAll("._plugin_counter_item");
+            const items = getCounterItems();
             for (let i = 0; i < items.length; i++) {
                 const item = items[i];
                 if (item.classList.contains("_plugin_counter_item_total")) {
@@ -139,6 +141,9 @@
                 }
             }
         }
+    }
+    function getCounterItems(root = document.documentElement) {
+        return Array.from(root.querySelectorAll("._plugin_counter_item"));
     }
 
     document.addEventListener("DOMContentLoaded", () => {

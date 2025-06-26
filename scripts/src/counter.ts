@@ -5,8 +5,10 @@ export function updateCounterItems() {
   if (pluginName !== "read") {
     return;
   }
-
-  if (!document.querySelector("._plugin_counter_item")) return;
+  const items = getCounterItems();
+  if (items.length === 0) {
+    return;
+  }
   // Found async counter items
   const sitePathname = getSiteProps().base_uri_pathname;
   const pageName = getPageName();
@@ -29,7 +31,7 @@ export function updateCounterItems() {
       }
     });
   function showCounterItems(obj) {
-    const items = document.querySelectorAll("._plugin_counter_item");
+    const items = getCounterItems();
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       if (item.classList.contains("_plugin_counter_item_total")) {
@@ -43,4 +45,30 @@ export function updateCounterItems() {
       }
     }
   }
+}
+
+function getCounterItems(root: HTMLElement = document.documentElement): HTMLElement[] {
+  return Array.from(root.querySelectorAll("._plugin_counter_item"));
+}
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest;
+
+  describe("getCounterItems", () => {
+    it("should return an empty array when no counter items are present", () => {
+      const root = document.createElement("div");
+      expect(getCounterItems(root)).toEqual([]);
+    });
+
+    it("should return all counter items", () => {
+      const root = document.createElement("div");
+      root.innerHTML = `
+        <span class="_plugin_counter_item _plugin_counter_item_total">100</span>
+        <span class="_plugin_counter_item _plugin_counter_item_today">10</span>
+        <span class="_plugin_counter_item _plugin_counter_item_yesterday">5</span>
+      `;
+      const items = getCounterItems(root);
+      expect(items.length).toBe(3);
+    });
+  });
 }
