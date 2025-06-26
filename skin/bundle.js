@@ -112,16 +112,6 @@
         const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
         fetchCounterData(url)
             .then((obj) => {
-            showCounterItems(obj);
-        })["catch"]((err) => {
-            // eslint-disable-line dot-notation
-            if (window.console && console.log) {
-                console.log(err);
-                console.log("Error! Please check JavaScript console\n" + JSON.stringify(err) + "|" + err);
-            }
-        });
-        function showCounterItems(obj) {
-            const items = getCounterItems();
             for (const item of items) {
                 if (item.classList.contains("_plugin_counter_item_total")) {
                     item.textContent = obj.total;
@@ -133,7 +123,13 @@
                     item.textContent = obj.yesterday;
                 }
             }
-        }
+        })["catch"]((err) => {
+            // eslint-disable-line dot-notation
+            if (window.console && console.log) {
+                console.log(err);
+                console.log("Error! Please check JavaScript console\n" + JSON.stringify(err) + "|" + err);
+            }
+        });
     }
     async function fetchCounterData(url) {
         const response = await fetch(url);
