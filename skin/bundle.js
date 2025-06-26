@@ -110,13 +110,7 @@
         const sitePathname = getSiteProps().base_uri_pathname;
         const pageName = getPageName();
         const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
-        fetch(url, { credentials: "same-origin" })
-            .then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error(response.status + ": " + response.statusText + " on " + url);
-        })
+        fetchCounterData(url)
             .then((obj) => {
             showCounterItems(obj);
         })["catch"]((err) => {
@@ -141,6 +135,13 @@
                 }
             }
         }
+    }
+    async function fetchCounterData(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Request failed: ${url}`);
+        }
+        return response.json();
     }
     function getCounterItems(root = document.documentElement) {
         return Array.from(root.querySelectorAll("._plugin_counter_item"));

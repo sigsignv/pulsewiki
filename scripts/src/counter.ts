@@ -13,13 +13,7 @@ export function updateCounterItems() {
   const sitePathname = getSiteProps().base_uri_pathname;
   const pageName = getPageName();
   const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
-  fetch(url, { credentials: "same-origin" })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(response.status + ": " + response.statusText + " on " + url);
-    })
+  fetchCounterData(url)
     .then((obj) => {
       showCounterItems(obj);
     })
@@ -45,6 +39,21 @@ export function updateCounterItems() {
       }
     }
   }
+}
+
+type CounterData = {
+  page: string;
+  total: string;
+  today: string;
+  yesterday: string;
+};
+
+async function fetchCounterData(url: string): Promise<CounterData> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Request failed: ${url}`);
+  }
+  return response.json() as Promise<CounterData>;
 }
 
 function getCounterItems(root: HTMLElement = document.documentElement): HTMLElement[] {
