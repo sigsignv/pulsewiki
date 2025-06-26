@@ -9,30 +9,25 @@ export function updateCounterItems() {
   if (items.length === 0) {
     return;
   }
-  // Found async counter items
-  const sitePathname = getSiteProps().base_uri_pathname;
+  const basePath = getSiteProps().base_uri_pathname;
   const pageName = getPageName();
-  const url = sitePathname + "?plugin=counter&page=" + encodeURIComponent(pageName);
+  const url = `${basePath}?plugin=counter&page=${encodeURIComponent(pageName)}`;
   fetchCounterData(url)
-    .then((obj) => {
+    .then((counter) => {
       for (const item of items) {
         if (item.classList.contains("_plugin_counter_item_total")) {
-          item.textContent = obj.total;
+          item.textContent = counter.total;
         }
         if (item.classList.contains("_plugin_counter_item_today")) {
-          item.textContent = obj.today;
+          item.textContent = counter.today;
         }
         if (item.classList.contains("_plugin_counter_item_yesterday")) {
-          item.textContent = obj.yesterday;
+          item.textContent = counter.yesterday;
         }
       }
     })
-    ["catch"]((err) => {
-      // eslint-disable-line dot-notation
-      if (window.console && console.log) {
-        console.log(err);
-        console.log("Error! Please check JavaScript console\n" + JSON.stringify(err) + "|" + err);
-      }
+    .catch((err) => {
+      console.error(err);
     });
 }
 
