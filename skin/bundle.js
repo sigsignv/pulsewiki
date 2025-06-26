@@ -122,8 +122,7 @@
         });
         function showCounterItems(obj) {
             const items = getCounterItems();
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
+            for (const item of items) {
                 if (item.classList.contains("_plugin_counter_item_total")) {
                     item.textContent = obj.total;
                 }
