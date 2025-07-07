@@ -101,12 +101,6 @@
         confirmEditFormLeaving();
     }
     function confirmEditFormLeaving() {
-        function trim(s) {
-            if (typeof s !== "string") {
-                return s;
-            }
-            return s.replace(/^\s+|\s+$/g, "");
-        }
         var canceled = false;
         var pluginNameE = document.querySelector("#pukiwiki-site-properties .plugin-name");
         if (!pluginNameE)
@@ -137,7 +131,7 @@
         cancelForm.addEventListener("submit", (e) => {
             submited = false;
             canceled = false;
-            if (trim(textArea.value) === trim(originalText)) {
+            if (trimString(textArea.value) === trimString(originalText)) {
                 canceled = true;
                 return false;
             }
@@ -160,7 +154,7 @@
             if (submited)
                 return;
             if (!isPreview) {
-                if (trim(textArea.value) === trim(originalText))
+                if (trimString(textArea.value) === trimString(originalText))
                     return;
             }
             var message = "Data you have entered will not be saved.";
@@ -169,6 +163,12 @@
             }
             e.returnValue = message;
         }, false);
+    }
+    function trimString(str) {
+        if (typeof str !== "string") {
+            return str;
+        }
+        return str.trim();
     }
 
     function updateCounterItems() {

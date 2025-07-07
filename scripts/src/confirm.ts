@@ -3,12 +3,6 @@ export function confirmEdit() {
 }
 
 function confirmEditFormLeaving() {
-  function trim(s) {
-    if (typeof s !== "string") {
-      return s;
-    }
-    return s.replace(/^\s+|\s+$/g, "");
-  }
   var canceled = false;
   var pluginNameE = document.querySelector("#pukiwiki-site-properties .plugin-name");
   if (!pluginNameE) return;
@@ -35,7 +29,7 @@ function confirmEditFormLeaving() {
   cancelForm.addEventListener("submit", (e) => {
     submited = false;
     canceled = false;
-    if (trim(textArea.value) === trim(originalText)) {
+    if (trimString(textArea.value) === trimString(originalText)) {
       canceled = true;
       return false;
     }
@@ -58,7 +52,7 @@ function confirmEditFormLeaving() {
       if (canceled) return;
       if (submited) return;
       if (!isPreview) {
-        if (trim(textArea.value) === trim(originalText)) return;
+        if (trimString(textArea.value) === trimString(originalText)) return;
       }
       var message = "Data you have entered will not be saved.";
       if (unloadBeforeMsgE && unloadBeforeMsgE.value) {
@@ -68,4 +62,28 @@ function confirmEditFormLeaving() {
     },
     false,
   );
+}
+
+function trimString(str: string) {
+  if (typeof str !== "string") {
+    return str;
+  }
+  return str.trim();
+}
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest;
+
+  describe("trimString", () => {
+    it("should trim leading and trailing spaces", () => {
+      expect(trimString("No Spaces")).toBe("No Spaces");
+      expect(trimString("  With Spaces  ")).toBe("With Spaces");
+      expect(trimString("\n\n  With New Lines  \n\n")).toBe("With New Lines");
+    });
+
+    it("should return an empty string for strings with only spaces", () => {
+      expect(trimString("  ")).toBe("");
+      expect(trimString("\n")).toBe("");
+    });
+  });
 }
