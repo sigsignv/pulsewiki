@@ -107,8 +107,6 @@
             }
             return s.replace(/^\s+|\s+$/g, "");
         }
-        if (!document.querySelector)
-            return;
         var canceled = false;
         var pluginNameE = document.querySelector("#pukiwiki-site-properties .plugin-name");
         if (!pluginNameE)
