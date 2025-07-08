@@ -337,7 +337,7 @@ function edit_form($page, $postdata, $digest = FALSE, $b_template = TRUE)
 	global $_btn_preview, $_btn_repreview, $_btn_update, $_btn_cancel, $_msg_help;
 	global $_btn_template, $_btn_load, $load_template_func;
 	global $notimeupdate;
-	global $_msg_edit_cancel_confirm, $_msg_edit_unloadbefore_message;
+	global $_msg_edit_cancel_confirm;
 	global $rule_page;
 
 	$script = get_base_uri();
@@ -410,7 +410,6 @@ EOD;
 	// 'margin-bottom', 'float:left', and 'margin-top'
 	// are for layout of 'cancel button'
 	$h_msg_edit_cancel_confirm = htmlsc($_msg_edit_cancel_confirm);
-	$h_msg_edit_unloadbefore_message = htmlsc($_msg_edit_unloadbefore_message);
 	$body = <<<EOD
 <div class="edit_form">
  <form action="$script" method="post" class="_plugin_edit_edit_form" style="margin-bottom:0;">
@@ -420,7 +419,6 @@ $template
   <input type="hidden" name="page"   value="$s_page" />
   <input type="hidden" name="digest" value="$s_digest" />
   <input type="hidden" id="_msg_edit_cancel_confirm" value="$h_msg_edit_cancel_confirm" />
-  <input type="hidden" id="_msg_edit_unloadbefore_message" value="$h_msg_edit_unloadbefore_message" />
   <textarea name="msg" rows="$rows" cols="$cols">$s_postdata</textarea>
   <br />
   <div style="float:left;">

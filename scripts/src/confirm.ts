@@ -14,7 +14,6 @@ function confirmEditFormLeaving() {
   const editForm = document.querySelector(".edit_form form._plugin_edit_edit_form");
   if (!editForm) return;
   const cancelMsgE = editForm.querySelector("#_msg_edit_cancel_confirm");
-  const unloadBeforeMsgE = editForm.querySelector("#_msg_edit_unloadbefore_message");
   const textArea = editForm.querySelector('textarea[name="msg"]');
   if (!textArea) return;
   originalText = textArea.value;
@@ -57,10 +56,7 @@ function confirmEditFormLeaving() {
       if (!isPreview) {
         if (trimString(textArea.value) === trimString(originalText)) return;
       }
-      let message = "Data you have entered will not be saved.";
-      if (unloadBeforeMsgE && unloadBeforeMsgE.value) {
-        message = unloadBeforeMsgE.value;
-      }
+      const message = "Data you have entered will not be saved.";
       e.returnValue = message;
     },
     false,

@@ -62,7 +62,6 @@ $_msg_use_alternative_link = 'リンク先の機能をご利用ください: $1'
 $_msg_general_error  = '処理中にエラーが発生しました。';
 
 $_msg_edit_cancel_confirm = '編集中のテキストは破棄されます。よろしいですか ?';
-$_msg_edit_unloadbefore_message = '入力したデータは保存されません。';
 
 ///////////////////////////////////////
 // Symbols

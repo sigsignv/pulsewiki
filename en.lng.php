@@ -60,7 +60,6 @@ $_msg_use_alternative_link = 'Please go to the following link destination: $1';
 $_msg_general_error  = 'An error occurred while processing.';
 
 $_msg_edit_cancel_confirm = 'The text you have entered will be discarded. Is it OK?';
-$_msg_edit_unloadbefore_message = 'Data you have entered will not be saved.';
 
 ///////////////////////////////////////
 // Symbols
