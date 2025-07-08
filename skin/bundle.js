@@ -26,6 +26,10 @@
     function getPluginName(root = document.documentElement) {
         return getPageInfo(".plugin-name", root);
     }
+    function getIsPreview(root = document.documentElement) {
+        const value = getPageInfo(".page-in-edit", root);
+        return value === "true";
+    }
 
     function autofillCommentName() {
         const pathName = getSiteProps().base_uri_pathname;
@@ -103,6 +107,7 @@
         if (getPluginName() !== "edit") {
             return;
         }
+        const isPreview = getIsPreview();
         let canceled = false;
         let originalText = null;
         const editForm = document.querySelector(".edit_form form._plugin_edit_edit_form");
@@ -113,11 +118,6 @@
         if (!textArea)
             return;
         originalText = textArea.value;
-        let isPreview = false;
-        const inEditE = document.querySelector("#pukiwiki-site-properties .page-in-edit");
-        if (inEditE && inEditE.value) {
-            isPreview = inEditE.value === "true";
-        }
         const cancelForm = document.querySelector(".edit_form form._plugin_edit_cancel");
         let submited = false;
         editForm.addEventListener("submit", () => {

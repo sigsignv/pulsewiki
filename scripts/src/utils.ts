@@ -36,6 +36,11 @@ export function getPluginName(root: HTMLElement = document.documentElement): str
   return getPageInfo(".plugin-name", root);
 }
 
+export function getIsPreview(root: HTMLElement = document.documentElement): boolean {
+  const value = getPageInfo(".page-in-edit", root);
+  return value === "true";
+}
+
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest;
 
@@ -116,6 +121,33 @@ if (import.meta.vitest) {
         </div>
       `;
       expect(getPageName(root)).toBe(pageName);
+    });
+  });
+
+  describe("getIsPreview", () => {
+    it("throws an error when the .page-in-edit element does not exist", () => {
+      const root = document.createElement("div");
+      expect(() => getIsPreview(root)).toThrowError(".page-in-edit does not exist");
+    });
+
+    it("returns true when .page-in-edit value is 'true'", () => {
+      const root = document.createElement("div");
+      root.innerHTML = `
+        <div id="pukiwiki-site-properties">
+          <input type="hidden" class="page-in-edit" value="true" />
+        </div>
+      `;
+      expect(getIsPreview(root)).toBe(true);
+    });
+
+    it("returns false when .page-in-edit value is not 'true'", () => {
+      const root = document.createElement("div");
+      root.innerHTML = `
+        <div id="pukiwiki-site-properties">
+          <input type="hidden" class="page-in-edit" value="false" />
+        </div>
+      `;
+      expect(getIsPreview(root)).toBe(false);
     });
   });
 }

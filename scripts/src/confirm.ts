@@ -1,4 +1,4 @@
-import { getPluginName } from "./utils";
+import { getIsPreview, getPluginName } from "./utils";
 
 export function confirmEdit() {
   confirmEditFormLeaving();
@@ -9,6 +9,8 @@ function confirmEditFormLeaving() {
     return;
   }
 
+  const isPreview = getIsPreview();
+
   let canceled = false;
   let originalText = null;
   const editForm = document.querySelector(".edit_form form._plugin_edit_edit_form");
@@ -17,11 +19,6 @@ function confirmEditFormLeaving() {
   const textArea = editForm.querySelector('textarea[name="msg"]');
   if (!textArea) return;
   originalText = textArea.value;
-  let isPreview = false;
-  const inEditE = document.querySelector("#pukiwiki-site-properties .page-in-edit");
-  if (inEditE && inEditE.value) {
-    isPreview = inEditE.value === "true";
-  }
   const cancelForm = document.querySelector(".edit_form form._plugin_edit_cancel");
   let submited = false;
   editForm.addEventListener("submit", () => {
