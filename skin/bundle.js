@@ -101,13 +101,11 @@
         confirmEditFormLeaving();
     }
     function confirmEditFormLeaving() {
+        if (getPluginName() !== "edit") {
+            return;
+        }
         let canceled = false;
-        const pluginNameE = document.querySelector("#pukiwiki-site-properties .plugin-name");
-        if (!pluginNameE)
-            return;
         let originalText = null;
-        if (pluginNameE.value !== "edit")
-            return;
         const editForm = document.querySelector(".edit_form form._plugin_edit_edit_form");
         if (!editForm)
             return;
