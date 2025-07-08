@@ -21,6 +21,17 @@ function confirmEditFormLeaving() {
   originalText = textArea.value;
   const cancelForm = document.querySelector(".edit_form form._plugin_edit_cancel");
   let submited = false;
+
+  const confirm = (ev: BeforeUnloadEvent) => {
+    if (canceled) return;
+    if (submited) return;
+    if (!isPreview) {
+      if (trimString(textArea.value) === trimString(originalText)) return;
+    }
+    const message = "Data you have entered will not be saved.";
+    ev.returnValue = message;
+  };
+
   editForm.addEventListener("submit", () => {
     canceled = false;
     submited = true;
@@ -45,19 +56,7 @@ function confirmEditFormLeaving() {
     e.preventDefault();
     return false;
   });
-  window.addEventListener(
-    "beforeunload",
-    (e) => {
-      if (canceled) return;
-      if (submited) return;
-      if (!isPreview) {
-        if (trimString(textArea.value) === trimString(originalText)) return;
-      }
-      const message = "Data you have entered will not be saved.";
-      e.returnValue = message;
-    },
-    false,
-  );
+  window.addEventListener("beforeunload", confirm, false);
 }
 
 function trimString(str: string) {
