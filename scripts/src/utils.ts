@@ -19,22 +19,21 @@ export function getSiteProps(root: HTMLElement = document.documentElement): Site
   }
 }
 
-export function getPageName(root: HTMLElement = document.documentElement): string {
-  const element = root.querySelector<HTMLInputElement>("#pukiwiki-site-properties .page-name");
+function getPageInfo(selector: string, root: HTMLElement = document.documentElement): string {
+  const element = root.querySelector<HTMLInputElement>(`#pukiwiki-site-properties ${selector}`);
   if (!element) {
-    throw new Error(".page-name does not exist");
+    throw new Error(`${selector} does not exist`);
   }
 
   return element.value;
 }
 
-export function getPluginName(root: HTMLElement = document.documentElement): string {
-  const element = root.querySelector<HTMLInputElement>("#pukiwiki-site-properties .plugin-name");
-  if (!element) {
-    throw new Error(".plugin-name does not exist");
-  }
+export function getPageName(root: HTMLElement = document.documentElement): string {
+  return getPageInfo(".page-name", root);
+}
 
-  return element.value;
+export function getPluginName(root: HTMLElement = document.documentElement): string {
+  return getPageInfo(".plugin-name", root);
 }
 
 if (import.meta.vitest) {

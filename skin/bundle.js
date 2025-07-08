@@ -13,19 +13,18 @@
             throw new Error(".site-props contains invalid JSON");
         }
     }
-    function getPageName(root = document.documentElement) {
-        const element = root.querySelector("#pukiwiki-site-properties .page-name");
+    function getPageInfo(selector, root = document.documentElement) {
+        const element = root.querySelector(`#pukiwiki-site-properties ${selector}`);
         if (!element) {
-            throw new Error(".page-name does not exist");
+            throw new Error(`${selector} does not exist`);
         }
         return element.value;
     }
+    function getPageName(root = document.documentElement) {
+        return getPageInfo(".page-name", root);
+    }
     function getPluginName(root = document.documentElement) {
-        const element = root.querySelector("#pukiwiki-site-properties .plugin-name");
-        if (!element) {
-            throw new Error(".plugin-name does not exist");
-        }
-        return element.value;
+        return getPageInfo(".plugin-name", root);
     }
 
     function autofillCommentName() {
