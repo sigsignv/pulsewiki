@@ -3,25 +3,25 @@ export function confirmEdit() {
 }
 
 function confirmEditFormLeaving() {
-  var canceled = false;
-  var pluginNameE = document.querySelector("#pukiwiki-site-properties .plugin-name");
+  let canceled = false;
+  const pluginNameE = document.querySelector("#pukiwiki-site-properties .plugin-name");
   if (!pluginNameE) return;
-  var originalText = null;
+  let originalText = null;
   if (pluginNameE.value !== "edit") return;
-  var editForm = document.querySelector(".edit_form form._plugin_edit_edit_form");
+  const editForm = document.querySelector(".edit_form form._plugin_edit_edit_form");
   if (!editForm) return;
-  var cancelMsgE = editForm.querySelector("#_msg_edit_cancel_confirm");
-  var unloadBeforeMsgE = editForm.querySelector("#_msg_edit_unloadbefore_message");
-  var textArea = editForm.querySelector('textarea[name="msg"]');
+  const cancelMsgE = editForm.querySelector("#_msg_edit_cancel_confirm");
+  const unloadBeforeMsgE = editForm.querySelector("#_msg_edit_unloadbefore_message");
+  const textArea = editForm.querySelector('textarea[name="msg"]');
   if (!textArea) return;
   originalText = textArea.value;
-  var isPreview = false;
-  var inEditE = document.querySelector("#pukiwiki-site-properties .page-in-edit");
+  let isPreview = false;
+  const inEditE = document.querySelector("#pukiwiki-site-properties .page-in-edit");
   if (inEditE && inEditE.value) {
     isPreview = inEditE.value === "true";
   }
-  var cancelForm = document.querySelector(".edit_form form._plugin_edit_cancel");
-  var submited = false;
+  const cancelForm = document.querySelector(".edit_form form._plugin_edit_cancel");
+  let submited = false;
   editForm.addEventListener("submit", () => {
     canceled = false;
     submited = true;
@@ -33,7 +33,7 @@ function confirmEditFormLeaving() {
       canceled = true;
       return false;
     }
-    var message = "The text you have entered will be discarded. Is it OK?";
+    let message = "The text you have entered will be discarded. Is it OK?";
     if (cancelMsgE && cancelMsgE.value) {
       message = cancelMsgE.value;
     }
@@ -54,7 +54,7 @@ function confirmEditFormLeaving() {
       if (!isPreview) {
         if (trimString(textArea.value) === trimString(originalText)) return;
       }
-      var message = "Data you have entered will not be saved.";
+      let message = "Data you have entered will not be saved.";
       if (unloadBeforeMsgE && unloadBeforeMsgE.value) {
         message = unloadBeforeMsgE.value;
       }
