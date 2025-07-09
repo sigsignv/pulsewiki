@@ -9,9 +9,11 @@ function confirmEditFormLeaving() {
     return;
   }
 
+  const controller = new AbortController();
+  const signal = controller.signal;
+
   const isPreview = getIsPreview();
 
-  let canceled = false;
   let originalText = null;
   const editForm = document.querySelector(".edit_form form._plugin_edit_edit_form");
   if (!editForm) return;
@@ -20,11 +22,8 @@ function confirmEditFormLeaving() {
   if (!textArea) return;
   originalText = textArea.value;
   const cancelForm = document.querySelector(".edit_form form._plugin_edit_cancel");
-  let submited = false;
 
   const confirm = (ev: BeforeUnloadEvent) => {
-    if (canceled) return;
-    if (submited) return;
     if (!isPreview) {
       if (trimString(textArea.value) === trimString(originalText)) return;
     }
@@ -33,14 +32,11 @@ function confirmEditFormLeaving() {
   };
 
   editForm.addEventListener("submit", () => {
-    canceled = false;
-    submited = true;
+    controller.abort();
   });
   cancelForm.addEventListener("submit", (e) => {
-    submited = false;
-    canceled = false;
     if (trimString(textArea.value) === trimString(originalText)) {
-      canceled = true;
+      controller.abort();
       return false;
     }
     let message = "The text you have entered will be discarded. Is it OK?";
@@ -48,15 +44,13 @@ function confirmEditFormLeaving() {
       message = cancelMsgE.value;
     }
     if (window.confirm(message)) {
-      // eslint-disable-line no-alert
-      // Execute "Cancel"
-      canceled = true;
+      controller.abort();
       return true;
     }
     e.preventDefault();
     return false;
   });
-  window.addEventListener("beforeunload", confirm, false);
+  window.addEventListener("beforeunload", confirm, { signal });
 }
 
 function trimString(str: string) {
