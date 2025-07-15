@@ -44,4 +44,29 @@ class FuncTest extends TestCase
             encode(mb_convert_encoding('日本語', 'EUC-JP', 'UTF-8'))
         );
     }
+
+    public function testDecodeAscii()
+    {
+        $this->assertEquals('', decode(''));
+        $this->assertEquals('FrontPage', decode('46726F6E7450616765'));
+        $this->assertEquals('FormattingRules', decode('466F726D617474696E6752756C6573'));
+    }
+
+    public function testDecodeUTF8()
+    {
+        $this->assertEquals('テスト', decode('E38386E382B9E38388'));
+        $this->assertEquals('日本語', decode('E697A5E69CACE8AA9E'));
+    }
+
+    public function testDecodeEUCJP()
+    {
+        $this->assertEquals(
+            mb_convert_encoding('テスト', 'EUC-JP', 'UTF-8'),
+            decode('A5C6A5B9A5C8')
+        );
+        $this->assertEquals(
+            mb_convert_encoding('日本語', 'EUC-JP', 'UTF-8'),
+            decode('C6FCCBDCB8EC')
+        );
+    }
 }
