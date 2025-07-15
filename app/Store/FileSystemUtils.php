@@ -16,4 +16,15 @@ final class FileSystemUtils
     {
         return strtoupper(bin2hex($str));
     }
+
+    /**
+     * Decode a hexadecimal string to original string.
+     *
+     * @param string $str The input hexadecimal string to decode.
+     * @return string The decoded string.
+     */
+    public static function decode(string $str): string
+    {
+        return hex2bin($str);
+    }
 }
