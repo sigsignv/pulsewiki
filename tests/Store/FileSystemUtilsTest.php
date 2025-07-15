@@ -76,4 +76,10 @@ final class FileSystemUtilsTest extends TestCase
             FileSystemUtils::decode('C6FCCBDCB8EC')
         );
     }
+
+    public function testDecodeFailed()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        @FileSystemUtils::decode('InvalidHexString');
+    }
 }

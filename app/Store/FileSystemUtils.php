@@ -20,11 +20,16 @@ final class FileSystemUtils
     /**
      * Decode a hexadecimal string to original string.
      *
-     * @param string $str The input hexadecimal string to decode.
+     * @param string $hex The input hexadecimal string to decode.
      * @return string The decoded string.
      */
-    public static function decode(string $str): string
+    public static function decode(string $hex): string
     {
-        return hex2bin($str);
+        $str = hex2bin($hex);
+        if ($str === false) {
+            throw new \InvalidArgumentException('Invalid hexadecimal string');
+        }
+
+        return $str;
     }
 }
