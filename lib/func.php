@@ -8,6 +8,10 @@
 //
 // General functions
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Pulsewiki\Store\FileSystemUtils;
+
 // URI type enum
 /** Relative path. */
 define('PKWK_URI_RELATIVE', 0);
@@ -505,9 +509,7 @@ function pagename_urlencode($page)
 function encode($str)
 {
 	$str = strval($str);
-	return ($str == '') ? '' : strtoupper(bin2hex($str));
-	// Equal to strtoupper(join('', unpack('H*0', $key)));
-	// But PHP 4.3.10 says 'Warning: unpack(): Type H: outside of string in ...'
+	return FileSystemUtils::encode($str);
 }
 
 // Decode page name
