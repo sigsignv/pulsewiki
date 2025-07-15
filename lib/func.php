@@ -515,7 +515,8 @@ function encode($str)
 // Decode page name
 function decode($str)
 {
-	return pkwk_hex2bin($str);
+	$str = strval($str);
+	return FileSystemUtils::decode($str);
 }
 
 // Inversion of bin2hex()
