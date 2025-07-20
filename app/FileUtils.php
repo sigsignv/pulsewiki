@@ -19,16 +19,16 @@ final class FileUtils
     {
         $fp = @fopen($filePath, 'rb');
         if ($fp === false) {
-            throw new \RuntimeException("Failed to open file: {$filePath}");
+            throw new \RuntimeException("Unable to open file: {$filePath}");
         }
 
         try {
             if (!flock($fp, LOCK_SH)) {
-                throw new \RuntimeException("Failed to lock file: {$filePath}");
+                throw new \RuntimeException("Unable to lock file: {$filePath}");
             }
             $content = stream_get_contents($fp, $length, $offset);
             if ($content === false) {
-                throw new \RuntimeException("Failed to read file: {$filePath}");
+                throw new \RuntimeException("Unable to read file: {$filePath}");
             }
         } finally {
             flock($fp, LOCK_UN);
@@ -49,18 +49,18 @@ final class FileUtils
     {
         $fp = @fopen($filePath, 'rb');
         if ($fp === false) {
-            throw new \RuntimeException("Failed to open file: {$filePath}");
+            throw new \RuntimeException("Unable to open file: {$filePath}");
         }
 
         try {
             if (!flock($fp, LOCK_SH)) {
-                throw new \RuntimeException("Failed to lock file: {$filePath}");
+                throw new \RuntimeException("Unable to lock file: {$filePath}");
             }
             while (($line = fgets($fp)) !== false) {
                 yield $line;
             }
             if (!feof($fp)) {
-                throw new \RuntimeException("Error reading file: {$filePath}");
+                throw new \RuntimeException("Unable to read file: {$filePath}");
             }
         } finally {
             flock($fp, LOCK_UN);
