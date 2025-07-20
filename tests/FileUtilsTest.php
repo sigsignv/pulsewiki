@@ -28,6 +28,14 @@ class FileUtilsTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
+    public function testGetContentEmptyFile()
+    {
+        file_put_contents($this->filePath, '', LOCK_EX);
+
+        $actual = FileUtils::getContent($this->filePath);
+        $this->assertSame('', $actual);
+    }
+
     public function testGetContentWithLength()
     {
         $expected = "line1\nline2\nline3\n";
