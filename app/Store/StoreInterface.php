@@ -8,5 +8,5 @@ interface StoreInterface
 {
     public function exists(string $key): bool;
     public function load(string $key): string;
-    public function store(string $key, string $content): void;
+    public function save(string $key, string $content): void;
 }

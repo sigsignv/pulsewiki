@@ -78,7 +78,7 @@ final class ChainStoreTest extends TestCase
         $store2 = new ArrayStore();
 
         $chainStore = new ChainStore($store1, $store2);
-        $chainStore->store('key', 'value');
+        $chainStore->save('key', 'value');
 
         $this->assertTrue($store1->exists('key'));
         $this->assertFalse($store2->exists('key'));

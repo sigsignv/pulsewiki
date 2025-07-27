@@ -39,8 +39,8 @@ final class ChainStore implements StoreInterface
         throw new \RuntimeException("Key not found: {$key}");
     }
 
-    public function store(string $key, string $content): void
+    public function save(string $key, string $content): void
     {
-        $this->stores[0]->store($key, $content);
+        $this->stores[0]->save($key, $content);
     }
 }

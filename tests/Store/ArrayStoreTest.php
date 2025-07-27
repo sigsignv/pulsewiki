@@ -58,7 +58,7 @@ final class ArrayStoreTest extends TestCase
     {
         $store = new ArrayStore();
 
-        $store->store('key', 'value');
+        $store->save('key', 'value');
 
         $this->assertTrue($store->exists('key'));
         $this->assertEquals('value', $store->load('key'));
@@ -68,7 +68,7 @@ final class ArrayStoreTest extends TestCase
     {
         $store = new ArrayStore(['key' => 'value']);
 
-        $store->store('key', 'newValue');
+        $store->save('key', 'newValue');
 
         $this->assertEquals('newValue', $store->load('key'));
     }

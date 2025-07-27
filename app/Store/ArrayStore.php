@@ -33,7 +33,7 @@ final class ArrayStore implements StoreInterface
         return $this->contents[$key];
     }
 
-    public function store(string $key, string $content): void
+    public function save(string $key, string $content): void
     {
         $this->contents[$key] = $content;
     }
