@@ -19,6 +19,15 @@ final class ChainStore implements StoreInterface
         $this->stores = $stores;
     }
 
+    public function delete(string $key): void
+    {
+        foreach ($this->stores as $store) {
+            if ($store->exists($key)) {
+                $store->delete($key);
+            }
+        }
+    }
+
     public function exists(string $key): bool
     {
         foreach ($this->stores as $store) {

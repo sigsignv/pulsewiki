@@ -16,6 +16,17 @@ final class ChainStoreTest extends TestCase
         new ChainStore();
     }
 
+    public function testDeleteRemovesKeyFromAllStores(): void
+    {
+        $store1 = new ArrayStore(['key' => 'value1']);
+        $store2 = new ArrayStore(['key' => 'value2']);
+        $chainStore = new ChainStore($store1, $store2);
+
+        $chainStore->delete('key');
+        $this->assertFalse($store1->exists('key'));
+        $this->assertFalse($store2->exists('key'));
+    }
+
     public function testExistsReturnsTrueWhenKeyFoundInFirstStore(): void
     {
         $store1 = new ArrayStore(['key' => 'value']);

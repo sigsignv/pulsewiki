@@ -23,6 +23,20 @@ final class ArrayStoreTest extends TestCase
         new ArrayStore(['key' => 123]);
     }
 
+    public function testDeleteRemovesKey(): void
+    {
+        $store = new ArrayStore(['key' => 'value']);
+        $store->delete('key');
+        $this->assertFalse($store->exists('key'));
+    }
+
+    public function testDeleteThrowsExceptionWhenKeyNotFound(): void
+    {
+        $store = new ArrayStore();
+        $this->expectException(\RuntimeException::class);
+        $store->delete('key');
+    }
+
     public function testExistsReturnsTrueForExistingKey(): void
     {
         $store = new ArrayStore(['key' => 'value']);

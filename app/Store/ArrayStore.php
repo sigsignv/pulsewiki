@@ -20,6 +20,14 @@ final class ArrayStore implements StoreInterface
         $this->contents = $contents;
     }
 
+    public function delete(string $key): void
+    {
+        if (!$this->exists($key)) {
+            throw new \RuntimeException("Key not found: {$key}");
+        }
+        unset($this->contents[$key]);
+    }
+
     public function exists(string $key): bool
     {
         return isset($this->contents[$key]);
