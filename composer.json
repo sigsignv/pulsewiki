@@ -1,0 +1,11 @@
+{
+    "name": "sigsign/pulsewiki",
+    "description": "A wiki framework written in PHP",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Pulsewiki\\": "app/"
+        }
+    },
+    "require": {}
+}
