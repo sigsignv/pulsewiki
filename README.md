@@ -12,4 +12,4 @@ This project builds upon PukiWiki. We are grateful to its developers, contributo
 
 ## License
 
-Licensed under the GNU General Public License, version 2 or later. See `COPYING.txt` for details.
+Licensed under the GNU General Public License, version 2 or later. See `COPYING` for details.
