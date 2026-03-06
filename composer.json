@@ -7,6 +7,11 @@
             "Pulsewiki\\": "app/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Pulsewiki\\": "tests/"
+        }
+    },
     "scripts": {
         "test": "phpunit -c tests/phpunit.dist.xml"
     },
