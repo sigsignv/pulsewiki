@@ -29,3 +29,9 @@
 # Composer
 /composer.phar
 /vendor/
+
+# PHP CS Fixer
+.php-cs-fixer.cache
+
+# PHPUnit
+.phpunit.result.cache
