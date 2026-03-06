@@ -13,6 +13,7 @@
         }
     },
     "scripts": {
+        "format": "php-cs-fixer fix",
         "test": "phpunit -c tests/phpunit.dist.xml"
     },
     "config": {
