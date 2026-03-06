@@ -27,3 +27,16 @@ jobs:
         uses: ramsey/composer-install@v3
       - name: Run tests
         run: composer test
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer, cs2pr, php-cs-fixer
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+      - name: Check code style
+        run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
