@@ -46,7 +46,5 @@ jobs:
           php-version: '8.2'
           tools: cs2pr, php-cs-fixer
           coverage: none
-      - name: Install dependencies
-        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v4.0.0
       - name: Check code style
         run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
