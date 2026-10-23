@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-final class ConvertHtmlFixture
+final class WikiConversionFixture
 {
     public static function load(): void
     {
