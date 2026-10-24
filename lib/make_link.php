@@ -69,10 +69,6 @@ class InlineConverter
 		$this->converters = $converters;
 	}
 
-	function InlineConverter($converters = NULL, $excludes = NULL)
-	{
-		$this->__construct($converters, $excludes);
-	}
 	function __construct($converters = NULL, $excludes = NULL)
 	{
 		if ($converters === NULL) {
@@ -176,10 +172,6 @@ class Link
 	var $body;
 	var $alias;
 
-	function Link($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		$this->start = $start;
@@ -238,10 +230,6 @@ class Link_plugin extends Link
 	var $pattern;
 	var $plain,$param;
 
-	function Link_plugin($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -311,10 +299,6 @@ EOD;
 // Footnotes
 class Link_note extends Link
 {
-	function Link_note($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -381,10 +365,6 @@ EOD;
 // URLs
 class Link_url extends Link
 {
-	function Link_url($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -432,10 +412,6 @@ EOD;
 // URLs (InterWiki definition on "InterWikiName")
 class Link_url_interwiki extends Link
 {
-	function Link_url_interwiki($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -476,10 +452,6 @@ class Link_mailto extends Link
 {
 	var $is_image, $image;
 
-	function Link_mailto($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -522,10 +494,6 @@ class Link_interwikiname extends Link
 	var $param  = '';
 	var $anchor = '';
 
-	function Link_interwikiname($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -593,10 +561,6 @@ class Link_bracketname extends Link
 {
 	var $anchor, $refer;
 
-	function Link_bracketname($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -659,10 +623,6 @@ EOD;
 // WikiNames
 class Link_wikiname extends Link
 {
-	function Link_wikiname($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -704,10 +664,6 @@ class Link_autolink extends Link
 	var $auto;
 	var $auto_a; // alphabet only
 
-	function Link_autolink($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		global $autolink;
@@ -754,10 +710,6 @@ class Link_autolink extends Link
 
 class Link_autolink_a extends Link_autolink
 {
-	function Link_autolink_a($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
@@ -777,10 +729,6 @@ class Link_autoalias extends Link
 	var $auto_a; // alphabet only
 	var $alias;
 
-	function Link_autoalias($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		global $autoalias, $aliaspage;
@@ -829,10 +777,6 @@ class Link_autoalias extends Link
 
 class Link_autoalias_a extends Link_autoalias
 {
-	function Link_autoalias_a($start)
-	{
-		$this->__construct($start);
-	}
 	function __construct($start)
 	{
 		parent::__construct($start);
