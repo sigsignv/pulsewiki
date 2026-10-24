@@ -8,5 +8,8 @@
     <testsuite name="Pulsewiki Test Suite">
       <directory>./unit</directory>
     </testsuite>
+    <testsuite name="PukiWiki Compatibility">
+      <directory>./compat</directory>
+    </testsuite>
   </testsuites>
 </phpunit>

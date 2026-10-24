@@ -99,10 +99,6 @@ class line_diff
 {
 	var $arr1, $arr2, $m, $n, $pos, $key, $plus, $minus, $equal, $reverse;
 
-	function line_diff($plus = '+', $minus = '-', $equal = ' ')
-	{
-		$this->__construct($plus, $minus, $equal);
-	}
 	function __construct($plus = '+', $minus = '-', $equal = ' ')
 	{
 		$this->plus  = $plus;
@@ -258,10 +254,6 @@ class DiffLine
 	var $text;
 	var $status;
 
-	function DiffLine($text)
-	{
-		$this->__construct($text);
-	}
 	function __construct($text)
 	{
 		$this->text   = $text . "\n";
