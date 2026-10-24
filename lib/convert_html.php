@@ -346,6 +346,9 @@ class ListContainer extends Element
 
 class ListElement extends Element
 {
+	var $level;
+	var $head;
+
 	function __construct($level, $head)
 	{
 		parent::__construct();
