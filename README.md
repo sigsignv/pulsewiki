@@ -2,6 +2,11 @@
 
 PulseWiki is a PHP-based wiki framework forked from PukiWiki.
 
+## Requirements
+
+- PHP 8.2 or later
+- mbstring extension
+
 ## Author
 
 - Sigsign <<sig@signote.cc>>
