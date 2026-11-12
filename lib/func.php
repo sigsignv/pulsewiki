@@ -90,20 +90,12 @@ function pkwk_log_updates($page, $diff_content) {
 }
 
 /**
- * ctype_digit that supports PHP4+.
+ * Retained for compatibility; originally a fallback for ctype_digit().
  *
- * PHP official document says PHP4 has ctype_digit() function.
- * But sometimes it doen't exists on PHP 4.1.
+ * @deprecated The ctype extension is required; use ctype_digit() directly.
  */
 function pkwk_ctype_digit($s) {
-	static $ctype_digit_exists;
-	if (!isset($ctype_digit_exists)) {
-		$ctype_digit_exists = function_exists('ctype_digit');
-	}
-	if ($ctype_digit_exists) {
-		return ctype_digit($s);
-	}
-	return preg_match('/^[0-9]+$/', $s) ? true : false;
+	return ctype_digit($s);
 }
 
 function is_interwiki($str)
