@@ -646,15 +646,10 @@ function pkwk_headers_sent()
 {
 	if (PKWK_OPTIMISE) return;
 
-	$file = $line = '';
-	if (version_compare(PHP_VERSION, '4.3.0', '>=')) {
-		if (headers_sent($file, $line))
-		    die('Headers already sent at ' .
-		    	htmlsc($file) .
+	if (headers_sent($file, $line)) {
+		die('Headers already sent at ' .
+			htmlsc($file) .
 			' line ' . $line . '.');
-	} else {
-		if (headers_sent())
-			die('Headers already sent.');
 	}
 }
 
