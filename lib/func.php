@@ -1200,19 +1200,15 @@ function manage_page_redirect() {
 }
 
 /**
- * Return 'u' (PCRE_UTF8) if PHP7+ and UTF-8.
+ * Returns 'u' if PKWK_UTF8_ENABLE is defined, or an empty string otherwise.
+ *
+ * This function was introduced to handle a PCRE behavior change in PHP 7.3
+ * that affected UTF-8 pattern matching.
+ *
+ * @see https://pukiwiki.sourceforge.io/dev/?BugTrack/2512
  */
 function get_preg_u() {
-	static $utf8u; // 'u'(PCRE_UTF8) or ''
-	if (! isset($utf8u)) {
-		if (version_compare('7.0.0', PHP_VERSION, '<=')
-			&& defined('PKWK_UTF8_ENABLE')) {
-			$utf8u = 'u';
-		} else {
-			$utf8u = '';
-		}
-	}
-	return $utf8u;
+	return defined('PKWK_UTF8_ENABLE') ? 'u' : '';
 }
 
 // Default Page name - URI mapping handler
