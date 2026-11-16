@@ -90,20 +90,15 @@ function pkwk_log_updates($page, $diff_content) {
 }
 
 /**
- * ctype_digit that supports PHP4+.
+ * Returns true if the given string is non-empty and contains only decimal digits.
  *
- * PHP official document says PHP4 has ctype_digit() function.
- * But sometimes it doen't exists on PHP 4.1.
+ * This function originally provided a fallback for environments where
+ * the ctype extension was unavailable. The extension is now required.
+ *
+ * @deprecated Use ctype_digit() directly.
  */
 function pkwk_ctype_digit($s) {
-	static $ctype_digit_exists;
-	if (!isset($ctype_digit_exists)) {
-		$ctype_digit_exists = function_exists('ctype_digit');
-	}
-	if ($ctype_digit_exists) {
-		return ctype_digit($s);
-	}
-	return preg_match('/^[0-9]+$/', $s) ? true : false;
+	return ctype_digit($s);
 }
 
 function is_interwiki($str)
@@ -1208,19 +1203,15 @@ function manage_page_redirect() {
 }
 
 /**
- * Return 'u' (PCRE_UTF8) if PHP7+ and UTF-8.
+ * Returns 'u' if PKWK_UTF8_ENABLE is defined, or an empty string otherwise.
+ *
+ * This function was introduced to handle a PCRE behavior change in PHP 7.3
+ * that affected UTF-8 pattern matching.
+ *
+ * @see https://pukiwiki.sourceforge.io/dev/?BugTrack/2512
  */
 function get_preg_u() {
-	static $utf8u; // 'u'(PCRE_UTF8) or ''
-	if (! isset($utf8u)) {
-		if (version_compare('7.0.0', PHP_VERSION, '<=')
-			&& defined('PKWK_UTF8_ENABLE')) {
-			$utf8u = 'u';
-		} else {
-			$utf8u = '';
-		}
-	}
-	return $utf8u;
+	return defined('PKWK_UTF8_ENABLE') ? 'u' : '';
 }
 
 // Default Page name - URI mapping handler
@@ -1248,63 +1239,5 @@ class PukiWikiStandardPageURIHandler {
 			return FALSE; // Error page
 		}
 		return $page2;
-	}
-}
-
-//// Compat ////
-
-// is_a --  Returns TRUE if the object is of this class or has this class as one of its parents
-// (PHP 4 >= 4.2.0)
-if (! function_exists('is_a')) {
-
-	function is_a($class, $match)
-	{
-		if (empty($class)) return FALSE; 
-
-		$class = is_object($class) ? get_class($class) : $class;
-		if (strtolower($class) == strtolower($match)) {
-			return TRUE;
-		} else {
-			return is_a(get_parent_class($class), $match);	// Recurse
-		}
-	}
-}
-
-// array_fill -- Fill an array with values
-// (PHP 4 >= 4.2.0)
-if (! function_exists('array_fill')) {
-
-	function array_fill($start_index, $num, $value)
-	{
-		$ret = array();
-		while ($num-- > 0) $ret[$start_index++] = $value;
-		return $ret;
-	}
-}
-
-// md5_file -- Calculates the md5 hash of a given filename
-// (PHP 4 >= 4.2.0)
-if (! function_exists('md5_file')) {
-
-	function md5_file($filename)
-	{
-		if (! file_exists($filename)) return FALSE;
-
-		$fd = fopen($filename, 'rb');
-		if ($fd === FALSE ) return FALSE;
-		$data = fread($fd, filesize($filename));
-		fclose($fd);
-		return md5($data);
-	}
-}
-
-// sha1 -- Compute SHA-1 hash
-// (PHP 4 >= 4.3.0, PHP5)
-if (! function_exists('sha1')) {
-	if (extension_loaded('mhash')) {
-		function sha1($str)
-		{
-			return bin2hex(mhash(MHASH_SHA1, $str));
-		}
 	}
 }

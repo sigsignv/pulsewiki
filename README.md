@@ -5,6 +5,7 @@ PulseWiki is a PHP-based wiki framework forked from PukiWiki.
 ## Requirements
 
 - PHP 8.2 or later
+- ctype extension
 - mbstring extension
 
 ## Author

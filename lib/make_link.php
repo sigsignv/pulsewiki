@@ -47,19 +47,16 @@ class InlineConverter
 	var $result;
 	var $page;
 
+	/**
+	 * Returns a clone of the given object.
+	 *
+	 * This method originally provided a common way to copy objects:
+	 * PHP 4 copied them by value, while PHP 5 introduced the clone operator.
+	 *
+	 * @deprecated Use the clone operator directly.
+	 */
 	function get_clone($obj) {
-		static $clone_exists;
-		if (! isset($clone_exists)) {
-			if (version_compare(PHP_VERSION, '5.0.0', '<')) {
-				$clone_exists = false;
-			} else {
-				$clone_exists = true;
-			}
-		}
-		if ($clone_exists) {
-			return clone ($obj);
-		}
-		return $obj;
+		return clone ($obj);
 	}
 
 	function __clone() {
@@ -272,7 +269,7 @@ EOD;
 		// Re-get true plugin name and patameters (for PHP 4.1.2)
 		$matches = array();
 		if (preg_match('/^' . $this->pattern . '/x' . get_preg_u(), $all, $matches)
-			&& $matches[1] != $this->plain) 
+			&& $matches[1] != $this->plain)
 			list(, $this->plain, $name, $this->param) = $matches;
 
 		return parent::setParam($page, $name, $body, 'plugin');
@@ -481,7 +478,7 @@ EOD;
 		list(, $alias, $name) = $this->splice($arr);
 		return parent::setParam($page, $name, '', 'mailto', $alias == '' ? $name : $alias);
 	}
-	
+
 	function toString()
 	{
 		return '<a href="mailto:' . $this->name . '" rel="nofollow">' . $this->alias . '</a>';
