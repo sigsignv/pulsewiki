@@ -90,9 +90,12 @@ function pkwk_log_updates($page, $diff_content) {
 }
 
 /**
- * Retained for compatibility; originally a fallback for ctype_digit().
+ * Returns true if the given string is non-empty and contains only decimal digits.
  *
- * @deprecated The ctype extension is required; use ctype_digit() directly.
+ * This function originally provided a fallback for environments where
+ * the ctype extension was unavailable. The extension is now required.
+ *
+ * @deprecated Use ctype_digit() directly.
  */
 function pkwk_ctype_digit($s) {
 	return ctype_digit($s);
