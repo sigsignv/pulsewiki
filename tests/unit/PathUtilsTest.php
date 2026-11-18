@@ -49,4 +49,27 @@ final class PathUtilsTest extends TestCase
             [['/var', '.', 'tmp', '..', 'log'], '/var/./tmp/../log'],
         ];
     }
+
+    #[DataProvider('encodeCases')]
+    public function testEncode(string $input, string $expected): void
+    {
+        self::assertSame($expected, PathUtils::encode($input));
+    }
+
+    /** @return list<array{string, string}> */
+    public static function encodeCases(): array
+    {
+        return [
+            ['', ''],
+            ['0', '30'],
+            ['9', '39'],
+            ['A', '41'],
+            ['Z', '5A'],
+            ['a', '61'],
+            ['z', '7A'],
+            ['FrontPage', '46726F6E7450616765'],
+            ['Foo/Bar 1', '466F6F2F4261722031'],
+            ['日本語', 'E697A5E69CACE8AA9E'],
+        ];
+    }
 }

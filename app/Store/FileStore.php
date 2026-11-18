@@ -31,14 +31,10 @@ final class FileStore implements StoreInterface
 
     public function has(string $name): bool
     {
-        $filename = $this->encode($name) . '.txt';
         clearstatcache();
 
-        return is_file(Path::join($this->dir, $filename));
-    }
-
-    public static function encode(string $key): string
-    {
-        return strtoupper(bin2hex($key));
+        return is_file(
+            Path::join($this->dir, Path::encode($name) . '.txt')
+        );
     }
 }

@@ -10,7 +10,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Pulsewiki\Store\FileStore;
+use Pulsewiki\Utils\PathUtils as Path;
 
 // URI type enum
 /** Relative path. */
@@ -504,7 +504,7 @@ function pagename_urlencode($page)
 function encode($str)
 {
 	$str = strval($str);
-	return FileStore::encode($str);
+	return Path::encode($str);
 }
 
 // Decode page name

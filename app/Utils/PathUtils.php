@@ -39,4 +39,12 @@ final class PathUtils
 
         return $path === '/' ? $path : rtrim($path, '/');
     }
+
+    /**
+     * Encode a string as uppercase hexadecimal.
+     */
+    public static function encode(string $key): string
+    {
+        return strtoupper(bin2hex($key));
+    }
 }
