@@ -23,11 +23,18 @@ declare(strict_types=1);
 
 namespace Pulsewiki\Store;
 
+use Pulsewiki\Utils\PathUtils as Path;
+
 final class FileStore implements StoreInterface
 {
+    public function __construct(public string $dir) {}
+
     public function has(string $name): bool
     {
-        return false;
+        $filename = $this->encode($name) . '.txt';
+        clearstatcache();
+
+        return is_file(Path::join($this->dir, $filename));
     }
 
     public static function encode(string $key): string
